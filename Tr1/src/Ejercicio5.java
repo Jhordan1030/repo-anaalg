@@ -72,9 +72,9 @@ public class Ejercicio5 {
      * Muestra la matriz en formato tabular.
      */
     public void mostrarMatriz() {
-        for (int i = 0; i < tamano; i++) {
-            for (int j = 0; j < tamano; j++) {
-                System.out.printf("%4d", matriz[i][j]);
+        for (int fila = 0; fila < tamano; fila++) {
+            for (int columna = 0; columna < tamano; columna++) {
+                System.out.printf("%4d", matriz[fila][columna]);
             }
             System.out.println();
         }
