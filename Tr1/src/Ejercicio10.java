@@ -1,7 +1,5 @@
-
 import java.util.Random;
 import java.util.Scanner;
-
 
 public class Ejercicio10 {
 
@@ -68,22 +66,25 @@ public class Ejercicio10 {
     }
 
     public static void main(String[] args) {
-        // Código del ejercicio 10
         System.out.println("\nEjecutando Ejercicio 10\n");
         Scanner scanner = new Scanner(System.in);
 
         int numEstudiantes = solicitarEntero(scanner, "Ingrese el número de estudiantes: ");
         int numNotas = solicitarEntero(scanner, "Ingrese el número de notas por estudiante: ");
 
-        long inicio = System.nanoTime();
+        long inicio = System.nanoTime();  // Tiempo inicial en nanosegundos
         Ejercicio10 notas = new Ejercicio10(numEstudiantes, numNotas);
-        long fin = System.nanoTime();
+        long fin = System.nanoTime();  // Tiempo final en nanosegundos
 
         notas.imprimirEstudiantes();
         notas.contarEstados();
 
-        long duracion = fin - inicio; // Tiempo en nanosegundos
-        System.out.println("Tiempo de ejecución: " + duracion + " nanosegundos");
+        long duracionNanosegundos = fin - inicio;  // Tiempo en nanosegundos
+        System.out.println("Tiempo de ejecución: " + duracionNanosegundos + " nanosegundos");
+
+        // Convertir a segundos
+        double duracionSegundos = duracionNanosegundos / 1_000_000_000.0; 
+        System.out.println("Tiempo de ejecución: " + duracionSegundos + " segundos");
 
         scanner.close();
     }
