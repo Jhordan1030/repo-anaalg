@@ -7,6 +7,6 @@
  *
  * @author jhord
  */
-public class Ejercicio1 {
+public class Ejercicio2 {
     
 }
