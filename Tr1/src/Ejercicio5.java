@@ -84,25 +84,24 @@ public class Ejercicio5 {
 
     public static void main(String[] args) {
         System.out.println("\nEjecutando Ejercicio 5\n");
-        
-        // Medir el tiempo de ejecución de la operación
-        medirTiempoEjecucion(() -> {
-            try (Scanner scanner = new Scanner(System.in)) {
-                // Solicitar al usuario el tamaño de la matriz
-                System.out.print("Ingrese el tamaño de la matriz (n): ");
-                int n = scanner.nextInt();
 
-                // Crear el objeto Ejercicio5 para la matriz de tamaño n x n
-                Ejercicio5 matrizDiagonal = new Ejercicio5(n);
+        try (Scanner scanner = new Scanner(System.in)) {
+            // Solicitar al usuario el tamaño de la matriz fuera de la medición de tiempo
+            System.out.print("Ingrese el tamaño de la matriz (n): ");
+            int n = scanner.nextInt();
 
+            // Crear el objeto Ejercicio5 para la matriz de tamaño n x n
+            Ejercicio5 matrizDiagonal = new Ejercicio5(n);
+
+            // Medir el tiempo de ejecución de la operación de generar la matriz
+            medirTiempoEjecucion(() -> {
                 // Generar el patrón de diagonales en la matriz
                 matrizDiagonal.generarDiagonales();
-
+                
                 // Mostrar la matriz generada
                 matrizDiagonal.mostrarMatriz();
-
-            }
-        });
+            });
+        }
     }
 
     /**

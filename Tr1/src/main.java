@@ -1,37 +1,86 @@
 import java.util.Scanner;
 import Ejercicio8.Ejercicio8;
 import Ejercicio9.Ejercicio9;
-
+import java.util.InputMismatchException;
 public class main {
+private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int opcion;
+        displayMenu();
+        int option = getOption();
 
-        do {
-            System.out.println("=== MENÚ DE EJERCICIOS ===");
-            System.out.println("1. Ejercicio 8 (Sopa de Letras)");
-            System.out.println("2. Ejercicio 9 (Matriz y Ordenamiento)");
-            System.out.println("0. Salir");
-            System.out.print("Elija una opción: ");
-            opcion = sc.nextInt();
-            sc.nextLine(); // Limpiar buffer
+        handleOption(option);
 
-            switch (opcion) {
-                case 1:
-                    Ejercicio8.main(new String[0]);
-                    break;
-                case 2:
-                    Ejercicio9.main(new String[0]);
-                    break;
-                case 0:
-                    System.out.println("Saliendo del programa...");
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
-            System.out.println();
-        } while (opcion != 0);
-        sc.close();
+        scanner.close();
+        System.out.println("Programa terminado.");
+    }
+
+    private static void displayMenu() {
+        System.out.println("\n=========================");
+        System.out.println("    Elija un ejercicio:    ");
+        System.out.println("=========================");
+        System.out.println("1. Ejercicio 1");
+        System.out.println("2. Ejercicio 2");
+        System.out.println("3. Ejercicio 3");
+        System.out.println("4. Ejercicio 4");
+        System.out.println("5. Ejercicio 5");
+        System.out.println("6. Ejercicio 6");
+        System.out.println("7. Ejercicio 7");
+        System.out.println("8. Ejercicio 8");
+        System.out.println("9. Ejercicio 9");
+        System.out.println("10. Ejercicio 10");
+        System.out.println("0. Salir");
+        System.out.println("=========================");
+        System.out.print("Elige una opción: ");
+    }
+
+    private static int getOption() {
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Entrada no válida. Por favor, ingresa un número.");
+            scanner.next(); // Limpiar el buffer
+            return -1; // Indicar que la entrada fue inválida
+        }
+    }
+
+    private static void handleOption(int option) {
+        switch (option) {
+            case 1:
+                Ejercicio1.main(null);
+                break;
+            case 2:
+                Ejercicio2.main(null);
+                break;
+            case 3:
+                Ejercicio3.main(null);
+                break;
+            case 4:
+                Ejercicio4.main(null);
+                break;
+            case 5:
+                Ejercicio5.main(null);
+                break;
+            case 6:
+                Ejercicio6.main(null);
+                break;
+            case 7:
+                Ejercicio7.main(null);
+                break;
+            case 8:
+                Ejercicio8.main(null);
+                break;
+            case 9:
+                Ejercicio9.main(null);
+                break;
+            case 10:
+                Ejercicio10.main(null);
+                break;
+            case 0:
+                System.out.println("Saliendo del programa.");
+                break;
+            default:
+                System.out.println("Opción no válida. Intenta de nuevo.");
+        }
     }
 }

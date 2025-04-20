@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * Ejercicio para generar una matriz con n filas y m columnas, con números aleatorios,
  * y realizar una búsqueda binaria de un número ingresado por el usuario. 
- * El tiempo de ejecución se mide en nanosegundos y segundos.
+ * El tiempo de ejecución de la búsqueda se mide en nanosegundos y segundos.
  */
 public class Ejercicio4 {
 
@@ -73,19 +73,19 @@ public class Ejercicio4 {
         }
     }
 
-    // Método para medir el tiempo de ejecución en nanosegundos y segundos
-    private static void medirTiempoEjecucion(Runnable operacion) {
-        long tiempoInicio = System.nanoTime();  // Tiempo inicial en nanosegundos
+    // Método para medir el tiempo de ejecución de una operación específica
+    private static void medirTiempoEjecucion(String operacion, Runnable operacionRunnable) {
+        long tiempoInicio = System.nanoTime();  
 
-        operacion.run();  // Ejecutar la operación
+        operacionRunnable.run();  // Ejecutar la operación
 
-        long tiempoFin = System.nanoTime();  // Tiempo final en nanosegundos
-        long duracionNanosegundos = tiempoFin - tiempoInicio;  // Diferencia en nanosegundos
+        long tiempoFin = System.nanoTime();  
+        long duracionNanosegundos = tiempoFin - tiempoInicio;  
 
-        double duracionSegundos = duracionNanosegundos / 1_000_000_000.0;  // Convertir a segundos
+        double duracionSegundos = duracionNanosegundos / 1_000_000_000.0;  
 
-        System.out.println("Tiempo de ejecución: " + duracionNanosegundos + " nanosegundos");
-        System.out.println("Tiempo de ejecución: " + duracionSegundos + " segundos");
+        System.out.println(operacion + " - Tiempo de ejecución: " + duracionNanosegundos + " nanosegundos");
+        System.out.println(operacion + " - Tiempo de ejecución: " + duracionSegundos + " segundos");
     }
 
     public static void main(String[] args) {
@@ -102,16 +102,15 @@ public class Ejercicio4 {
         // Crear objeto de la clase Ejercicio
         Ejercicio4 ejercicio = new Ejercicio4(filas, columnas);
 
-        // Generar la matriz y mostrarla
+        // Generar la matriz, pero sin medir el tiempo de generación
         ejercicio.generarNumerosAleatorios();
         ejercicio.imprimirMatriz();
 
-        // Solicitar el número a buscar y medir el tiempo de ejecución de la búsqueda
+        // Solicitar el número a buscar
         System.out.print("Ingrese el número a buscar: ");
-        medirTiempoEjecucion(() -> {
-            int numeroBuscado = scanner.nextInt();
-            // Buscar el número en la matriz
-            ejercicio.buscarElemento(numeroBuscado);
-        });
+        int numeroBuscado = scanner.nextInt();
+
+        // Medir solo el tiempo de búsqueda
+        medirTiempoEjecucion("Búsqueda del elemento", () -> ejercicio.buscarElemento(numeroBuscado));
     }
 }
