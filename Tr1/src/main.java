@@ -68,10 +68,10 @@ private static final Scanner scanner = new Scanner(System.in);
                 Ejercicio7.main(null);
                 break;
             case 8:
-                Ejercicio8.main(null);
+                Ejercicio8.main(new String[0]);
                 break;
             case 9:
-                Ejercicio9.main(null);
+                Ejercicio9.main(new String[0]);
                 break;
             case 10:
                 Ejercicio10.main(null);

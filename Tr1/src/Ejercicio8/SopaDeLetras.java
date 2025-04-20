@@ -34,6 +34,8 @@ public class SopaDeLetras {
     }
 
     public List<List<Posicion>> buscarPalabra(String palabra) {
+        palabra = palabra.toUpperCase();
+        System.out.println("Buscando la palabra: " + palabra);
         List<List<Posicion>> resultados = new ArrayList<>();
         int[][] direcciones = {
             {-1, -1}, {-1, 0}, {-1, 1},

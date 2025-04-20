@@ -10,8 +10,8 @@ public class Ejercicio8 {
         System.out.print("Ingrese el número de columnas: ");
         int m = sc.nextInt();
         sc.nextLine();
-        System.out.print("Ingrese la palabra a buscar (en mayúsculas): ");
-        String palabra = sc.nextLine().toUpperCase();
+        System.out.print("Ingrese la palabra a buscar: ");
+        String palabra = sc.nextLine();
 
         SopaDeLetras sopa = new SopaDeLetras(n, m);
         System.out.println("\nMatriz generada:");
