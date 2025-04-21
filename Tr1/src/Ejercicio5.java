@@ -1,9 +1,5 @@
 import java.util.Scanner;
 
-/**
- * Ejercicio para generar una matriz de tamaño nxn con un patrón en diagonal.
- * Las diagonales se llenan comenzando desde la central, luego las inferiores y superiores.
- */
 public class Ejercicio5 {
 
     private int[][] matriz;
@@ -97,7 +93,7 @@ public class Ejercicio5 {
             medirTiempoEjecucion(() -> {
                 // Generar el patrón de diagonales en la matriz
                 matrizDiagonal.generarDiagonales();
-                
+
                 // Mostrar la matriz generada
                 matrizDiagonal.mostrarMatriz();
             });
@@ -121,7 +117,8 @@ public class Ejercicio5 {
 
         // Convertir nanosegundos a segundos
         double duracionSegundos = duracionNanosegundos / 1_000_000_000.0;
-        // Mostrar el tiempo de ejecución en segundos
-        System.out.println("Tiempo de ejecución: " + duracionSegundos + " segundos");
+
+        // Mostrar el tiempo de ejecución en segundos con formato adecuado
+        System.out.printf("Tiempo de ejecución: %.9f segundos\n", duracionSegundos);
     }
 }
