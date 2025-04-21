@@ -88,6 +88,9 @@ public class Ejercicio1 {
         }
         System.out.println(); // Para dar salto de línea
 
+        // Mostrar la cantidad de números primos encontrados
+        System.out.println("\nCantidad de números primos encontrados: " + primos.size());
+
         // Mostrar el tiempo de ejecución de la búsqueda de primos
         System.out.println("Tiempo de ejecución para encontrar los primos: " + duracionBusqueda + " nanosegundos");
         System.out.printf("Tiempo de ejecución para encontrar los primos: %.9f segundos\n", duracionBusqueda / 1_000_000_000.0);
