@@ -1,125 +1,82 @@
 import java.util.Scanner;
 
 public class Ejercicio6 {
-    // Constantes
-    private static final int VALOR_VACIO = -1;
-    private static final int NANOSEGUNDOS_POR_MICROSEGUNDO = 1000;
-    private static final int NANOSEGUNDOS_POR_MILISEGUNDO = 1_000_000;
-    private static final int NANOSEGUNDOS_POR_SEGUNDO = 1_000_000_000;
-    
-    // Campos
-    private final int[][] matriz;
-    private final int tamaño;
 
-    /**
-     * Constructor que inicializa la matriz con valores vacíos
-     * @param tamaño Tamaño de la matriz cuadrada
-     */
-    public Ejercicio6(int tamaño) {
-        validarTamañoMatriz(tamaño);
-        this.tamaño = tamaño;
-        this.matriz = new int[tamaño][tamaño];
-        inicializarMatrizConValoresVacios();
+    // Método principal
+    public static void main(String[] args) {
+
+        // Crear un objeto Scanner para leer la entrada del usuario
+        Scanner scanner = new Scanner(System.in);
+
+        // Solicitar la dimensión de la matriz
+        System.out.print("Ingrese la dimensión de la matriz (n): ");
+        int tamañoMatriz = scanner.nextInt();
+
+        // Medir el tiempo de ejecución total del programa
+        long tiempoInicioPrograma = System.nanoTime();
+
+        // Crear la matriz de tamaño n x n
+        int[][] matriz = new int[tamañoMatriz][tamañoMatriz];
+
+        // Medir el tiempo de ejecución de la parte de llenar la matriz
+        long tiempoInicio = System.nanoTime();
+        // Llenar la matriz con el patrón específico
+        llenarMatrizConPatron(matriz, tamañoMatriz);
+
+        // Medir el tiempo de ejecución para imprimir la matriz
+        long tiempoFin = System.nanoTime();
+        long duracionLlenado = tiempoFin - tiempoInicio;
+
+        // Mostrar los tiempos en un solo mensaje
+        System.out.println("Tiempo total de ejecución:");
+        System.out.println("Tiempo para llenar la matriz: " + duracionLlenado + " nanosegundos");
+        // Mostrar el tiempo en segundos
+        double duracionSegundos = duracionLlenado / 1_000_000_000.0;
+        System.out.printf("Tiempo para llenar la matriz: %.9f segundos\n", duracionSegundos);
+
+        // Imprimir la matriz
+        imprimirMatriz(matriz, tamañoMatriz);
+
+        // Medir el tiempo total de ejecución del programa
+        long tiempoFinPrograma = System.nanoTime();
+        long duracionTotal = tiempoFinPrograma - tiempoInicioPrograma;
+
+        // Mostrar el tiempo total de ejecución del programa
+        System.out.println("\nTiempo total de ejecución del programa:");
+        System.out.println("Tiempo total de ejecución: " + duracionTotal + " nanosegundos");
+        System.out.printf("Tiempo total de ejecución: %.9f segundos\n", duracionTotal / 1_000_000_000.0);
+
+        scanner.close();
     }
 
-    private void validarTamañoMatriz(int tamaño) {
-        if (tamaño <= 0) {
-            throw new IllegalArgumentException("El tamaño de la matriz debe ser mayor que cero");
-        }
-    }
+    // Método para llenar la matriz con el patrón solicitado
+    public static void llenarMatrizConPatron(int[][] matriz, int tamañoMatriz) {
+        // Variable para generar los números secuenciales
+        int numero = 1;
 
-    private void inicializarMatrizConValoresVacios() {
-        for (int fila = 0; fila < tamaño; fila++) {
-            for (int columna = 0; columna < tamaño; columna++) {
-                matriz[fila][columna] = VALOR_VACIO;
+        // Llenar la matriz con el patrón específico
+        for (int fila = 0; fila < tamañoMatriz; fila++) {
+            // Llenar la fila de acuerdo al patrón
+            if (fila % 2 == 0) {  // Filas pares (0, 2, 4, ...) se llenan de manera ascendente
+                for (int columna = 0; columna <= fila; columna++) {
+                    matriz[fila][columna] = numero++;
+                }
+            } else {  // Filas impares (1, 3, 5, ...) se llenan de manera descendente
+                for (int columna = fila; columna >= 0; columna--) {
+                    matriz[fila][columna] = numero++;
+                }
             }
         }
     }
 
-    /**
-     * Genera la matriz especial llenando la diagonal y la parte inferior
-     */
-    public void generarMatriz() {
-        int numeroActual = 1;
-        llenarDiagonalPrincipal(numeroActual);
-        llenarParteInferior(numeroActual + tamaño);
-    }
-
-    private void llenarDiagonalPrincipal(int numeroInicial) {
-        for (int posicionDiagonal = 0; posicionDiagonal < tamaño; posicionDiagonal++) {
-            matriz[posicionDiagonal][posicionDiagonal] = numeroInicial + posicionDiagonal;
-        }
-    }
-
-    private void llenarParteInferior(int numeroInicial) {
-        int numeroActual = numeroInicial;
-        
-        for (int columnaActual = 0; columnaActual < tamaño; columnaActual++) {
-            for (int filaDebajoDiagonal = columnaActual + 1; filaDebajoDiagonal < tamaño; filaDebajoDiagonal++) {
-                matriz[filaDebajoDiagonal][columnaActual] = numeroActual++;
+    // Método para imprimir la matriz
+    public static void imprimirMatriz(int[][] matriz, int tamañoMatriz) {
+        System.out.println("Matriz " + tamañoMatriz + "x" + tamañoMatriz + ":");
+        for (int fila = 0; fila < tamañoMatriz; fila++) {
+            for (int columna = 0; columna <= fila; columna++) {
+                System.out.print(matriz[fila][columna] + "\t");
             }
-        }
-    }
-
-    /**
-     * Imprime la matriz formateada, mostrando espacios para valores vacíos
-     */
-    public void imprimirMatriz() {
-        System.out.println("Matriz generada:");
-        
-        for (int[] fila : matriz) {
-            imprimirFila(fila);
             System.out.println();
         }
-    }
-
-    private void imprimirFila(int[] fila) {
-        for (int valorCelda : fila) {
-            if (valorCelda == VALOR_VACIO) {
-                System.out.print("    ");
-            } else {
-                System.out.printf("%4d", valorCelda);
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        try {
-            int tamañoMatriz = solicitarTamañoMatriz(scanner);
-            Ejercicio6 matriz = new Ejercicio6(tamañoMatriz);
-            
-            long tiempoEjecucionNs = medirTiempoGeneracionMatriz(matriz);
-            
-            matriz.imprimirMatriz();
-            mostrarResultadosTiempo(tiempoEjecucionNs);
-        } finally {
-            scanner.close();
-        }
-    }
-
-    private static int solicitarTamañoMatriz(Scanner scanner) {
-        System.out.print("Ingrese el tamaño de la matriz (n x n): ");
-        return scanner.nextInt();
-    }
-
-    private static long medirTiempoGeneracionMatriz(Ejercicio6 matriz) {
-        long inicio = System.nanoTime();
-        matriz.generarMatriz();
-        return System.nanoTime() - inicio;
-    }
-
-    private static void mostrarResultadosTiempo(long tiempoNanosegundos) {
-        System.out.println("\nTiempo de ejecución:");
-        System.out.println("Nanosegundos: " + tiempoNanosegundos + " ns");
-        
-        System.out.printf("Microsegundos: %.3f µs%n", convertirNanosegundos(tiempoNanosegundos, NANOSEGUNDOS_POR_MICROSEGUNDO));
-        System.out.printf("Milisegundos: %.3f ms%n", convertirNanosegundos(tiempoNanosegundos, NANOSEGUNDOS_POR_MILISEGUNDO));
-        System.out.printf("Segundos: %.6f s%n", convertirNanosegundos(tiempoNanosegundos, NANOSEGUNDOS_POR_SEGUNDO));
-    }
-
-    private static double convertirNanosegundos(long tiempoNs, int factorConversion) {
-        return (double) tiempoNs / factorConversion;
     }
 }
