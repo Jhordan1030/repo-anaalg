@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,7 +21,7 @@ public class Ejercicio3 {
         return arreglo;
     }
 
-    // Método para realizar la búsqueda binaria
+    // Método para realizar la búsqueda binaria (aunque en este caso no será necesario)
     public static int busquedaBinaria(int[] arreglo, int elemento) {
         int izquierda = 0;
         int derecha = arreglo.length - 1;
@@ -49,34 +48,16 @@ public class Ejercicio3 {
         return -1;
     }
 
-    // Método para buscar todas las posiciones de un elemento en el arreglo
+    // Método para buscar todas las posiciones de un elemento en el arreglo sin ordenarlo
     public static ArrayList<Integer> buscarTodasLasPosiciones(int[] arreglo, int elemento) {
         ArrayList<Integer> posiciones = new ArrayList<>();
 
-        // Primero encontramos una posición con búsqueda binaria
-        int posicion = busquedaBinaria(arreglo, elemento);
-
-        // Si no se encuentra el elemento, retornamos lista vacía
-        if (posicion == -1) {
-            return posiciones;
+        // Buscamos en el arreglo sin ordenarlo
+        for (int i = 0; i < arreglo.length; i++) {
+            if (arreglo[i] == elemento) {
+                posiciones.add(i);
+            }
         }
-
-        // Buscamos hacia la izquierda
-        int i = posicion;
-        while (i >= 0 && arreglo[i] == elemento) {
-            posiciones.add(i);
-            i--;
-        }
-
-        // Buscamos hacia la derecha
-        i = posicion + 1;
-        while (i < arreglo.length && arreglo[i] == elemento) {
-            posiciones.add(i);
-            i++;
-        }
-
-        // Ordenamos las posiciones para mostrarlas en orden
-        posiciones.sort(null);
 
         return posiciones;
     }
@@ -101,10 +82,7 @@ public class Ejercicio3 {
         System.out.print("Ingrese el tamaño del arreglo (n): ");
         int n = scanner.nextInt();
 
-        System.out.print("Ingrese el elemento a buscar: ");
-        int elementoBuscado = scanner.nextInt();
-        // Medir el tiempo de ejecución total del programa
-        long tiempoInicioPrograma = System.nanoTime();
+        
 
         // Crear el arreglo aleatorio
         int[] arreglo = generarArregloAleatorio(n, 1, 100);
@@ -112,18 +90,13 @@ public class Ejercicio3 {
         System.out.println("\nArreglo desordenado:");
         imprimirArreglo(arreglo);
 
-        // Ordenar el arreglo (requisito para búsqueda binaria)
-        Arrays.sort(arreglo);
-
-        // Imprimir el arreglo ordenado
-        System.out.println("\nArreglo ordenado:");
-        imprimirArreglo(arreglo);
-
-        // Medir el tiempo de ejecución de la búsqueda
-        long tiempoInicioBusqueda = System.nanoTime();
+        // Solicitar el elemento a buscar
+        System.out.print("Ingrese el elemento a buscar: ");
+        int elementoBuscado = scanner.nextInt();
+        // Medir el tiempo de ejecución total del programa
+        long tiempoInicioPrograma = System.nanoTime();
+        // Buscar todas las posiciones del elemento
         ArrayList<Integer> posiciones = buscarTodasLasPosiciones(arreglo, elementoBuscado);
-        long tiempoFinBusqueda = System.nanoTime();
-        long duracionBusqueda = tiempoFinBusqueda - tiempoInicioBusqueda;
 
         // Mostrar resultados de la búsqueda
         if (posiciones.isEmpty()) {
@@ -134,7 +107,6 @@ public class Ejercicio3 {
                 System.out.println("Posición: " + pos);
             }
         }
-
 
         // Medir el tiempo de ejecución total del programa
         long tiempoFinPrograma = System.nanoTime();
