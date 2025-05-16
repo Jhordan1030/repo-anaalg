@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package examengrupalada;
-
+import java.util.Scanner;
 /**
  *
  * @author Giuliana Espinoza
@@ -15,6 +15,24 @@ public class ExamenGrupalADA {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+         Scanner scanner = new Scanner(System.in);
+        
+        // Solicitar dimensiones de la matriz al usuario
+        System.out.println("Ingrese el número de filas para la matriz:");
+        int filas = scanner.nextInt();
+        
+        System.out.println("Ingrese el número de columnas para la matriz:");
+        int columnas = scanner.nextInt();
+        
+        // Crear la matriz con las dimensiones ingresadas
+        Matriz miMatriz = new Matriz(filas, columnas);
+        
+        // Imprimir la matriz
+        System.out.println("\nMatriz generada aleatoriamente:");
+        miMatriz.imprimirMatriz();
+        
+        scanner.close();
+        
     }
     
 }
