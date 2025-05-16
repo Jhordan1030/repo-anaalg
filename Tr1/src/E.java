@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Ej {
+public class E {
     // Constantes
     private static final int VALOR_MAXIMO = 90;
     private static final int VALOR_MINIMO = 1;
