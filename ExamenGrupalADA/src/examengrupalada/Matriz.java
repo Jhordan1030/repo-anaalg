@@ -47,4 +47,8 @@ public class Matriz {
     public int getColumnas() {
         return columnas;
     }
+        // Método getter necesario para acceder a la matriz
+    public int[][] getMatriz() {
+        return this.matriz;
+    }
 }
