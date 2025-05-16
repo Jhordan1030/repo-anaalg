@@ -78,6 +78,8 @@ public class OrdenamientoBurbuja {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Ordenamiento por Burbuja");
+
         System.out.println("Ingrese el número de filas para la matriz:");
         int filas = scanner.nextInt();
 
