@@ -22,18 +22,18 @@ public class Matriz {
 
     // Método para llenar la matriz con números aleatorios
     private void llenarMatrizAleatoria() {
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-                matriz[i][j] = random.nextInt(100); // Números entre 0 y 99
+        for (int fil = 0; fil < filas; fil++) {
+            for (int col = 0; col < columnas; col++) {
+                matriz[fil][col] = random.nextInt(100); // Números entre 0 y 99
             }
         }
     }
 
     // Método para imprimir la matriz
     public void imprimirMatriz() {
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-                System.out.print(matriz[i][j] + "\t");
+        for (int fil = 0; fil < filas; fil++) {
+            for (int col = 0; col < columnas; col++) {
+                System.out.print(matriz[fil][col] + "\t");
             }
             System.out.println();
         }
