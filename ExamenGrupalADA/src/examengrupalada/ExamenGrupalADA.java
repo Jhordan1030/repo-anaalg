@@ -18,18 +18,41 @@ public class ExamenGrupalADA {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Solicitar dimensiones de la matriz al usuario
         System.out.println("Ingrese el número de filas para la matriz:");
         int filas = scanner.nextInt();
 
         System.out.println("Ingrese el número de columnas para la matriz:");
         int columnas = scanner.nextInt();
 
-        // Crear la matriz con las dimensiones ingresadas
         Matriz miMatriz = new Matriz(filas, columnas);
+        OrdenamientoShellSort shellSort = new OrdenamientoShellSort(miMatriz);
 
-        // Imprimir la matriz
-        System.out.println("\nMatriz generada aleatoriamente:");
+        System.out.println("\nMatriz original:");
+        miMatriz.imprimirMatriz();
+
+        // Ordenar por filas
+        shellSort.ordenarPorFilas();
+        System.out.println("\nMatriz ordenada por filas:");
+        miMatriz.imprimirMatriz();
+
+        // Crear nueva matriz para ordenar por columnas
+        miMatriz = new Matriz(filas, columnas);
+        shellSort = new OrdenamientoShellSort(miMatriz);
+        System.out.println("\nNueva matriz original:");
+        miMatriz.imprimirMatriz();
+        
+        shellSort.ordenarPorColumnas();
+        System.out.println("\nMatriz ordenada por columnas:");
+        miMatriz.imprimirMatriz();
+
+        // Crear nueva matriz para ordenamiento completo
+        miMatriz = new Matriz(filas, columnas);
+        shellSort = new OrdenamientoShellSort(miMatriz);
+        System.out.println("\nNueva matriz original:");
+        miMatriz.imprimirMatriz();
+        
+        shellSort.ordenarMatrizCompleta();
+        System.out.println("\nMatriz completamente ordenada:");
         miMatriz.imprimirMatriz();
         
         scanner.close();
