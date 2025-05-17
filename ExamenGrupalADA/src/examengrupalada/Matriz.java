@@ -6,10 +6,10 @@ package examengrupalada;
 import java.util.Random;
 
 public class Matriz {
-    private int[][] matriz;
-    private int filas;
-    private int columnas;
-    private Random random;
+    protected int[][] matriz;
+    protected int filas;
+    protected int columnas;
+    protected Random random;
 
     // Constructor que recibe filas y columnas
     public Matriz(int filas, int columnas) {
