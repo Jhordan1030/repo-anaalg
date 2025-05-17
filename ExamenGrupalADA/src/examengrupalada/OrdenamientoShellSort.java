@@ -70,13 +70,12 @@ public class OrdenamientoShellSort extends Matriz {
             for (int posicionActual = distancia; posicionActual < longitudArreglo; posicionActual++) {
                 int elementoAInsertar = elementos[posicionActual];
                 int posicionComparacion;
-                
-                for (posicionComparacion = posicionActual; 
-                     posicionComparacion >= distancia && 
-                     elementos[posicionComparacion - distancia] > elementoAInsertar; 
-                     posicionComparacion -= distancia) {
-                    
-                    elementos[posicionComparacion] = elementos[posicionComparacion - distancia];
+                for (posicionComparacion = posicionActual; posicionComparacion >= distancia; posicionComparacion -= distancia) {
+                    if (elementos[posicionComparacion - distancia] > elementoAInsertar) {
+                        elementos[posicionComparacion] = elementos[posicionComparacion - distancia];                        
+                    } else {
+                        break;
+                    }
                 }
                 
                 elementos[posicionComparacion] = elementoAInsertar;
