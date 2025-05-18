@@ -18,19 +18,29 @@ public class ExamenGrupalADA {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Solicitar dimensiones de la matriz al usuario
         System.out.println("Ingrese el número de filas para la matriz:");
         int filas = scanner.nextInt();
 
         System.out.println("Ingrese el número de columnas para la matriz:");
         int columnas = scanner.nextInt();
 
-        // Crear la matriz con las dimensiones ingresadas
-        Matriz miMatriz = new Matriz(filas, columnas);
+        OrdenamientoShellSort shellSort = new OrdenamientoShellSort(filas, columnas);
 
-        // Imprimir la matriz
-        System.out.println("\nMatriz generada aleatoriamente:");
-        miMatriz.imprimirMatriz();
+        System.out.println("\nMatriz original:");
+        shellSort.imprimirMatriz();
+
+        // Ordenar por filas
+
+        System.out.println("\nMatriz ordenada por filas:");
+        shellSort.imprimirOrdenamiento(shellSort.ordenarPorFilas());
+        
+        // Ordenar por columnas
+        System.out.println("\nMatriz ordenada por columnas:");
+        shellSort.imprimirOrdenamiento(shellSort.ordenarPorColumnas());
+        
+        // Ordenar matriz completa
+        System.out.println("\nMatriz completamente ordenada:");
+        shellSort.imprimirOrdenamiento(shellSort.ordenarMatrizCompleta());
         
         scanner.close();
     }
