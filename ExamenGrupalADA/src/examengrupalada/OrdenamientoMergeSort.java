@@ -85,19 +85,16 @@ public class OrdenamientoMergeSort {
     }
     public static void main(String[] args) {
         Matriz m2;
-        //Evaluar tiempos
-        for (int size = 10; size <= 100; size += 10) {
-            m2 = new Matriz(size, size); // matriz cuadrada size x size
-            int numeroABuscar = (int)(Math.random() * (size - 1));
-
-            long inicio = System.nanoTime();
-            ordenarColumna(m2.getMatriz(), numeroABuscar);
-            ordenarFila(m2.getMatriz(), numeroABuscar);
-            ordenarMatriz(m2.getMatriz());
-            long fin = System.nanoTime();
-
-            long tiempo = fin - inicio;
-            System.out.println("Tamaño: " + size + "x" + size + " | Tiempo: " + tiempo + " ns\n");
-        }
+        m2 = new Matriz(6, 7);
+        m2.imprimirMatriz();
+        
+        ordenarColumna(m2.getMatriz(), 0);
+        m2.imprimirMatriz();
+        
+        ordenarFila(m2.getMatriz(), 1);
+        m2.imprimirMatriz();
+        
+        ordenarMatriz(m2.getMatriz());
+        m2.imprimirMatriz();
     }
 }

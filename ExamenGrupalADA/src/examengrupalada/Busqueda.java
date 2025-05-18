@@ -57,7 +57,7 @@ public class Busqueda {
     }
 
     public static void main(String[] args) {
-        Matriz m1, m2;
+        Matriz m1;
         Scanner user;
 
         user = new Scanner(System.in);
@@ -73,18 +73,5 @@ public class Busqueda {
         int num = user.nextInt();
 
         buscarUnElementoEnVariasPosiciones(m1, num);
-
-        //Evaluar tiempos
-        for (int size = 10; size <= 100; size += 10) {
-            m2 = new Matriz(size, size); // matriz cuadrada size x size
-            int numeroABuscar = (int) (Math.random() * 100); // número aleatorio a buscar
-
-            long inicio = System.nanoTime();
-            buscarUnElementoEnVariasPosiciones(m2.getMatriz(), numeroABuscar);
-            long fin = System.nanoTime();
-
-            long tiempo = fin - inicio;
-            System.out.println("Tamaño: " + size + "x" + size + " | Tiempo: " + tiempo + " ns\n");
-        }
     }
 }
