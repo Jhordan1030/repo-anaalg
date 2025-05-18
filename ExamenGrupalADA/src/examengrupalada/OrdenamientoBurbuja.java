@@ -19,7 +19,7 @@ public class OrdenamientoBurbuja {
             for (int indiceColumna = 0; indiceColumna < columnas - 1 - pasada; indiceColumna++) {
                 if (matriz[fila][indiceColumna] > matriz[fila][indiceColumna + 1]) {
                     int temp = matriz[fila][indiceColumna];
-                    matriz[fila][indiceColumna] = matriz[fila][indiceColumna + 1];
+                    matriz[fila][indiceColumna] = matriz[fila][indiceColumna + 1];                  //T(n)= 6n^2-8n+7
                     matriz[fila][indiceColumna + 1] = temp;
                 }
             }
@@ -35,7 +35,7 @@ public class OrdenamientoBurbuja {
                     int temp = matriz[indiceFila][columna];
                     matriz[indiceFila][columna] = matriz[indiceFila + 1][columna];
                     matriz[indiceFila + 1][columna] = temp;
-                }
+                }                                                                       //T(n)=6n^2-8n+7
             }
         }
     }
@@ -50,17 +50,17 @@ public class OrdenamientoBurbuja {
         int posicion = 0;
         for (int fila = 0; fila < numFilas; fila++) {
             for (int columna = 0; columna < numColumnas; columna++) {
-                arregloPlano[posicion++] = matriz[fila][columna];
+                arregloPlano[posicion++] = matriz[fila][columna];           //T = 3n^2+4n+2
             }
         }
 
         // Ordenamiento burbuja en arreglo plano
         for (int pasada = 0; pasada < totalElementos - 1; pasada++) {
-            for (int indice = 0; indice < totalElementos - 1 - pasada; indice++) {
+            for (int indice = 0; indice < totalElementos - 1 - pasada; indice++) {      //T(n) = 12n^2+14
                 if (arregloPlano[indice] > arregloPlano[indice + 1]) {
                     int temp = arregloPlano[indice];
                     arregloPlano[indice] = arregloPlano[indice + 1];
-                    arregloPlano[indice + 1] = temp;
+                    arregloPlano[indice + 1] = temp;                    //T=6n^2-8n+4
                 }
             }
         }
@@ -69,7 +69,7 @@ public class OrdenamientoBurbuja {
         posicion = 0;
         for (int fila = 0; fila < numFilas; fila++) {
             for (int columna = 0; columna < numColumnas; columna++) {
-                matriz[fila][columna] = arregloPlano[posicion++];
+                matriz[fila][columna] = arregloPlano[posicion++];       //T=3n^2+4n+2
             }
         }
     }
