@@ -34,17 +34,17 @@ public class OrdenamientoSeleccion {
         if (matriz.length == 0 || columna < 0 || columna >= matriz[0].length) {
             System.out.println("Columna inválida");
             return;
-        }
+        }                                                               
 
         int[] columnaTemporal = new int[matriz.length];
         for (int filaIndex = 0; filaIndex < matriz.length; filaIndex++) {
-            columnaTemporal[filaIndex] = matriz[filaIndex][columna];
+            columnaTemporal[filaIndex] = matriz[filaIndex][columna];   //T(FILAINDEX)= 3n+2
         }
 
-        ordenarPorSeleccion(columnaTemporal);
+        ordenarPorSeleccion(columnaTemporal); // t(ordenarporseleccion)= 4^2+n-2
 
         for (int filaIndex = 0; filaIndex < matriz.length; filaIndex++) {
-            matriz[filaIndex][columna] = columnaTemporal[filaIndex];
+            matriz[filaIndex][columna] = columnaTemporal[filaIndex];//t(filaindex)=3n+2
         }
     }
 
@@ -53,28 +53,31 @@ public class OrdenamientoSeleccion {
      * 
      * @param matriz matriz de enteros a ordenar
      */
-    public void ordenarMatrizCompleta(int[][] matriz) {
-        if (matriz.length == 0) return;
+   public void ordenarMatrizCompleta(int[][] matriz) {
+    if (matriz.length == 0) return;
 
-        int totalElementos = matriz.length * matriz[0].length;
-        int[] elementos = new int[totalElementos];
+    int totalElementos = matriz.length * matriz[0].length;
+    int[] elementos = new int[totalElementos];
 
-        int indiceElemento = 0;
-        for (int[] fila : matriz) {
-            for (int valor : fila) {
-                elementos[indiceElemento++] = valor;
-            }
-        }
-
-        ordenarPorSeleccion(elementos);
-
-        indiceElemento = 0;
-        for (int filaIndex = 0; filaIndex < matriz.length; filaIndex++) {
-            for (int columnaIndex = 0; columnaIndex < matriz[filaIndex].length; columnaIndex++) {
-                matriz[filaIndex][columnaIndex] = elementos[indiceElemento++];
-            }
+    int indiceElemento = 0;
+    for (int i = 0; i < matriz.length; i++) {
+        for (int j = 0; j < matriz[i].length; j++) {
+            elementos[indiceElemento++] = matriz[i][j];
         }
     }
+
+    ordenarPorSeleccion(elementos);
+
+    indiceElemento = 0;
+    for (int filaIndex = 0; filaIndex < matriz.length; filaIndex++) {
+        for (int columnaIndex = 0; columnaIndex < matriz[filaIndex].length; columnaIndex++) {
+            matriz[filaIndex][columnaIndex] = elementos[indiceElemento++];
+        }
+    }
+    
+       System.out.println("");
+}
+
 
     /**
      * Implementación del algoritmo de ordenamiento por selección para un arreglo.
