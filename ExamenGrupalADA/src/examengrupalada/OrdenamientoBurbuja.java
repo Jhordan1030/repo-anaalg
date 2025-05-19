@@ -80,10 +80,10 @@ public class OrdenamientoBurbuja {
 
         System.out.println("Ordenamiento por Burbuja");
 
-        System.out.println("Ingrese el número de filas para la matriz:");
+        System.out.print("Ingrese el número de filas para la matriz:");
         int filas = scanner.nextInt();
 
-        System.out.println("Ingrese el número de columnas para la matriz:");
+        System.out.print("Ingrese el número de columnas para la matriz:");
         int columnas = scanner.nextInt();
 
         Matriz miMatriz = new Matriz(filas, columnas);
