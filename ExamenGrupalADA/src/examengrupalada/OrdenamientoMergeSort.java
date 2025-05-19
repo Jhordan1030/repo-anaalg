@@ -13,104 +13,104 @@ import java.util.Scanner;
 public class OrdenamientoMergeSort {
 
     // Método para ordenar una fila específica de una matriz
-    public static void ordenarFila(int[][] matriz, int fila) { //2
+    public static void ordenarFila(int[][] matriz, int fila) {
         int[] filaData = matriz[fila]; //1
-        mergeSort(filaData, 0, filaData.length - 1); // (13n+21)(2^n-1)+4*2^n
-        // (13n+21)(2^n-1)+4*2^n+3
+        mergeSort(filaData, 0, filaData.length - 1);
+
     }
 
     // Método para ordenar una columna específica de una matriz
-    public static void ordenarColumna(int[][] matriz, int columna) { //2
-        int filas = matriz.length; //1
-        int[] columnaData = new int[filas]; //1
+    public static void ordenarColumna(int[][] matriz, int columna) {
+        int filas = matriz.length;
+        int[] columnaData = new int[filas];
 
         // Extraer la columna
-        for (int fil = 0; fil < filas; fil++) { //3n+2
+        for (int fil = 0; fil < filas; fil++) {
             columnaData[fil] = matriz[fil][columna];
         }
 
         // Ordenar columna
-        mergeSort(columnaData, 0, filas - 1); //(13n+17)(2^n-1)+4*2^n
+        mergeSort(columnaData, 0, filas - 1);
 
         // Reinsertar la columna ordenada
-        for (int fil = 0; fil < filas; fil++) { //3n+2
+        for (int fil = 0; fil < filas; fil++) {
             matriz[fil][columna] = columnaData[fil];
         }
-        //total = 6n+8 + (13n+17)(2^n-1)+4*2^n
+
     }
 
     // Método para ordenar toda la matriz fila por fila (puedes modificar para columna por columna si deseas)
-    public static void ordenarMatriz(int[][] matriz) { //1
-        int filas = matriz.length; //1
-        int columnas = matriz[0].length; //1
-        int total = filas * columnas; //1
+    public static void ordenarMatriz(int[][] matriz) {
+        int filas = matriz.length;
+        int columnas = matriz[0].length;
+        int total = filas * columnas;
 
-        int[] arreglo = new int[total]; // Crear arreglo temporal 1
+        int[] arreglo = new int[total];
 
         // Paso 1: Copiar elementos de la matriz al arreglo
         int index = 0; //1
         //inicio = 6
-        for (int fil = 0; fil < filas; fil++) { //1 n+1 n 3n²+2n = 3n²+4n+2
-            for (int col = 0; col < columnas; col++) { // 1 n+1 n n = 3n+2
+        for (int fil = 0; fil < filas; fil++) {
+            for (int col = 0; col < columnas; col++) {
                 arreglo[index++] = matriz[fil][col];
             }
         }
 
         // Paso 2: Ordenar el arreglo con MergeSort personalizado
-        mergeSort(arreglo, 0, arreglo.length - 1); //(13n+21)(2^n-1)+4*2^n
+        mergeSort(arreglo, 0, arreglo.length - 1);
 
         // Paso 3: Volver a llenar la matriz con los valores ordenados
-        index = 0; //1
-        for (int fil = 0; fil < filas; fil++) { //1 n+1 n 3n²+2 = 3n²+4n+2
-            for (int col = 0; col < columnas; col++) { //1 n+1 n n = 3n+2
+        index = 0;
+        for (int fil = 0; fil < filas; fil++) {
+            for (int col = 0; col < columnas; col++) {
                 matriz[fil][col] = arreglo[index++];
             }
         }
-        // total = 6n³+8n+11+(13n+21)(2^n-1)+4*2^n
+
     }
 
     // Método auxiliar de MergeSort
     private static void mergeSort(int[] arr, int left, int right) { //3
-        if (left < right) { //1
-            int mid = (left + right) / 2; //1
-            mergeSort(arr, left, mid); // T(n-1)
-            mergeSort(arr, mid + 1, right);// T(n-1)
-            merge(arr, left, mid, right); //13n+16
+        if (left < right) {
+            int mid = (left + right) / 2;
+            mergeSort(arr, left, mid);
+            mergeSort(arr, mid + 1, right);
+            merge(arr, left, mid, right);
         }
-        //b= 13n+17 a=4
-    } //13n+21+2T(n-1) = (13n+21)(2^n-1)+4*2^n
 
-    private static void merge(int[] arr, int left, int mid, int right) { //4
-        int[] leftArray = new int[mid - left + 1]; //1
-        int[] rightArray = new int[right - mid]; //1
+    }
 
-        for (int i = 0; i < leftArray.length; i++) //1 n+1 n = 3n+2
+    private static void merge(int[] arr, int left, int mid, int right) {
+        int[] leftArray = new int[mid - left + 1];
+        int[] rightArray = new int[right - mid];
+
+        for (int i = 0; i < leftArray.length; i++)
         {
-            leftArray[i] = arr[left + i]; //n
+            leftArray[i] = arr[left + i];
         }
-        for (int j = 0; j < rightArray.length; j++) //3n+2
+        for (int j = 0; j < rightArray.length; j++)
         {
             rightArray[j] = arr[mid + 1 + j];
         }
 
-        int i = 0, j = 0, k = left; //3
+        int i = 0, j = 0, k = left;
 
-        while (i < leftArray.length && j < rightArray.length) { //n+1 = 3n+1
-            if (leftArray[i] <= rightArray[j]) { //2n
+        while (i < leftArray.length && j < rightArray.length) {
+            if (leftArray[i] <= rightArray[j]) {
                 arr[k++] = leftArray[i++];
             } else {
                 arr[k++] = rightArray[j++];
             }
         }
 
-        while (i < leftArray.length) { // n+1 = 2n+1
-            arr[k++] = leftArray[i++]; //n
+        while (i < leftArray.length) {
+            arr[k++] = leftArray[i++];
         }
 
-        while (j < rightArray.length) { //2n+1
+        while (j < rightArray.length) {
             arr[k++] = rightArray[j++];
         }
-        //total = 6 + 6n+4 + 3 +3n+1 + 4n+2 = 13n+16
+
     }
 
     public static void main(String[] args) {

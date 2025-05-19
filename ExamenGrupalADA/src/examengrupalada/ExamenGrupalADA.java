@@ -1,4 +1,5 @@
 package examengrupalada;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -20,6 +21,9 @@ public class ExamenGrupalADA {
 
         scanner.close();
         System.out.println("Programa terminado.");
+        System.out.println("Valores agregados:" + "\n" + "1. Ordenamiento de MergeShort" + "\n" + "2. Ordenar filas"
+                            +"\n" + "3. Ordenar columnas" + "\n" + "4. Codigo limpio" + "\n" + "5. POO");
+
     }
     private static void displayMenu() {
         System.out.println("\n=========================");
