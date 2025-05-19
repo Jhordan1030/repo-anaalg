@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package examengrupalada;
+
 import java.util.Scanner;
+
 /**
  *
  * @author Pablo Jiménez
  */
 public class OrdenamientoMergeSort {
+
     // Método para ordenar una fila específica de una matriz
     public static void ordenarFila(int[][] matriz, int fila) { //2
         int[] filaData = matriz[fila]; //1
@@ -22,26 +25,48 @@ public class OrdenamientoMergeSort {
         int[] columnaData = new int[filas]; //1
 
         // Extraer la columna
-        for (int i = 0; i < filas; i++) { //3n+2
-            columnaData[i] = matriz[i][columna];
+        for (int fil = 0; fil < filas; fil++) { //3n+2
+            columnaData[fil] = matriz[fil][columna];
         }
 
         // Ordenar columna
         mergeSort(columnaData, 0, filas - 1); //(13n+17)(2^n-1)+4*2^n
 
         // Reinsertar la columna ordenada
-        for (int i = 0; i < filas; i++) { //3n+2
-            matriz[i][columna] = columnaData[i];
+        for (int fil = 0; fil < filas; fil++) { //3n+2
+            matriz[fil][columna] = columnaData[fil];
         }
         //total = 6n+8 + (13n+17)(2^n-1)+4*2^n
     }
 
     // Método para ordenar toda la matriz fila por fila (puedes modificar para columna por columna si deseas)
     public static void ordenarMatriz(int[][] matriz) { //1
-        for (int i = 0; i < matriz.length; i++) { //1 n+1 n 
-            ordenarFila(matriz, i);// n*((13n+21)(2^n-1)+4*2^n+3)
+        int filas = matriz.length; //1
+        int columnas = matriz[0].length; //1
+        int total = filas * columnas; //1
+
+        int[] arreglo = new int[total]; // Crear arreglo temporal 1
+
+        // Paso 1: Copiar elementos de la matriz al arreglo
+        int index = 0; //1
+        //inicio = 6
+        for (int fil = 0; fil < filas; fil++) { //1 n+1 n 3n²+2n = 3n²+4n+2
+            for (int col = 0; col < columnas; col++) { // 1 n+1 n n = 3n+2
+                arreglo[index++] = matriz[fil][col];
+            }
         }
-        //total = 2n+3+ n*((13n+21)(2^n-1)+4*2^n+3)
+
+        // Paso 2: Ordenar el arreglo con MergeSort personalizado
+        mergeSort(arreglo, 0, arreglo.length - 1); //(13n+21)(2^n-1)+4*2^n
+
+        // Paso 3: Volver a llenar la matriz con los valores ordenados
+        index = 0; //1
+        for (int fil = 0; fil < filas; fil++) { //1 n+1 n 3n²+2 = 3n²+4n+2
+            for (int col = 0; col < columnas; col++) { //1 n+1 n n = 3n+2
+                matriz[fil][col] = arreglo[index++];
+            }
+        }
+        // total = 6n³+8n+11+(13n+21)(2^n-1)+4*2^n
     }
 
     // Método auxiliar de MergeSort
@@ -60,9 +85,13 @@ public class OrdenamientoMergeSort {
         int[] rightArray = new int[right - mid]; //1
 
         for (int i = 0; i < leftArray.length; i++) //1 n+1 n = 3n+2
+        {
             leftArray[i] = arr[left + i]; //n
+        }
         for (int j = 0; j < rightArray.length; j++) //3n+2
+        {
             rightArray[j] = arr[mid + 1 + j];
+        }
 
         int i = 0, j = 0, k = left; //3
 
@@ -83,6 +112,7 @@ public class OrdenamientoMergeSort {
         }
         //total = 6 + 6n+4 + 3 +3n+1 + 4n+2 = 13n+16
     }
+
     public static void main(String[] args) {
         Matriz matriz;
         Scanner user;
@@ -96,8 +126,7 @@ public class OrdenamientoMergeSort {
         matriz = new Matriz(filas, columnas);
         System.out.println("\nMatriz generada aleatoriamente:");
         matriz.imprimirMatriz();
-        
-        
+
         System.out.println("\nOpciones de ordenamiento:");
         System.out.println("f - Ordenar una fila");
         System.out.println("c - Ordenar una columna");

@@ -56,22 +56,22 @@ public class Busqueda {
         return buscarUnElementoEnVariasPosiciones(matriz.getMatriz(), element);
     }
 
-    public static void main(String[] args) {
-        Matriz m1;
-        Scanner user;
-
-        user = new Scanner(System.in);
-
-        System.out.print("Ingrese num de filas: ");
-        int filas = user.nextInt();
-        System.out.print("Ingrese num de columnas: ");
-        int columnas = user.nextInt();
-        m1 = new Matriz(filas, columnas);
-        m1.imprimirMatriz();
-
-        System.out.print("Buscar un elemento, ingrese un numero: ");
-        int num = user.nextInt();
-
-        buscarUnElementoEnVariasPosiciones(m1, num);
-    }
+//    public static void main(String[] args) {
+//        Matriz m1;
+//        Scanner user;
+//
+//        user = new Scanner(System.in);
+//
+//        System.out.print("Ingrese num de filas: ");
+//        int filas = user.nextInt();
+//        System.out.print("Ingrese num de columnas: ");
+//        int columnas = user.nextInt();
+//        m1 = new Matriz(filas, columnas);
+//        m1.imprimirMatriz();
+//
+//        System.out.print("Buscar un elemento, ingrese un numero: ");
+//        int num = user.nextInt();
+//
+//        buscarUnElementoEnVariasPosiciones(m1, num);
+//    }
 }
