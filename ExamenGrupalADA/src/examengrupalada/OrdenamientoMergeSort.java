@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package examengrupalada;
-
+import java.util.Scanner;
 /**
  *
  * @author Pablo Jiménez
@@ -84,17 +84,54 @@ public class OrdenamientoMergeSort {
         //total = 6 + 6n+4 + 3 +3n+1 + 4n+2 = 13n+16
     }
     public static void main(String[] args) {
-        Matriz m2;
-        m2 = new Matriz(6, 7);
-        m2.imprimirMatriz();
+        Matriz matriz;
+        Scanner user;
+
+        user = new Scanner(System.in);
+
+        System.out.print("Ingrese num de filas: ");
+        int filas = user.nextInt();
+        System.out.print("Ingrese num de columnas: ");
+        int columnas = user.nextInt();
+        matriz = new Matriz(filas, columnas);
+        System.out.println("\nMatriz generada aleatoriamente:");
+        matriz.imprimirMatriz();
         
-        ordenarColumna(m2.getMatriz(), 0);
-        m2.imprimirMatriz();
         
-        ordenarFila(m2.getMatriz(), 1);
-        m2.imprimirMatriz();
-        
-        ordenarMatriz(m2.getMatriz());
-        m2.imprimirMatriz();
+        System.out.println("\nOpciones de ordenamiento:");
+        System.out.println("f - Ordenar una fila");
+        System.out.println("c - Ordenar una columna");
+        System.out.println("e - Ordenar matriz completa");
+        System.out.print("Seleccione una opción: ");
+
+        String opcion = user.next().toLowerCase();
+
+        switch (opcion) {
+            case "f":
+                System.out.print("Ingrese el número de fila a ordenar (0-" + (filas - 1) + "): ");
+                int fila = user.nextInt();
+                ordenarFila(matriz.getMatriz(), fila);
+                System.out.println("\nMatriz con fila " + fila + " ordenada:");
+                break;
+
+            case "c":
+                System.out.print("Ingrese el número de columna a ordenar (0-" + (columnas - 1) + "): ");
+                int columna = user.nextInt();
+                ordenarColumna(matriz.getMatriz(), columna);
+                System.out.println("\nMatriz con columna " + columna + " ordenada:");
+                break;
+
+            case "e":
+                ordenarMatriz(matriz.getMatriz());
+                System.out.println("\nMatriz completamente ordenada:");
+                break;
+
+            default:
+                System.out.println("Opción no válida");
+                break;
+        }
+
+        matriz.imprimirMatriz();
+        user.close();
     }
 }
