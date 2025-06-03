@@ -172,21 +172,23 @@ class Matriz:
             # T(2) = 3b + a
             # T(n) = bn + a
         def llenar(i, j):
-            if i == len(self.matriz):
+            if i < 0:
                 return
-            if j == len(otra.matriz[0]):
-                llenar(i + 1, 0)
+            if j < 0:
+                llenar(i - 1, len(otra.matriz[0]) - 1)
                 return
-            resultado.matriz[i][j] = calcular_elemento(i, j, len(self.matriz[0]) - 1)
-            llenar(i, j + 1)
+            resultado.matriz[i][j] = calcular_elemento(i, j, len(self.matriz[0]) - 1) #bn+a
+            llenar(i, j - 1)
             # b + T(n-1)  --> n+1 sería el cambio, pero le revertimos porque va de 0 a n, y evaluamos como si fuese de n a 0
             # T(0:tam) = a
             # T(1) = b + a
             # T(2) = 2b + a
             # T(2) = 3b + a
             # T(n) = bn + a
+            # b = bn+a
+            # T(n) = n(bn+a) + a = bn²+an+a
 
-        llenar(0, 0)
+        llenar(len(self.matriz) - 1, len(otra.matriz[0]) - 1)
         return resultado
 
     def __str__(self):
