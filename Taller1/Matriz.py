@@ -162,18 +162,29 @@ class Matriz:
         resultado = Matriz(filas=len(self.matriz), columnas=len(otra.matriz[0]))
 
         def calcular_elemento(i, j, k):
-            if k == len(self.matriz[0]):
+            if k < 0:
                 return 0
-            return self.matriz[i][k] * otra.matriz[k][j] + calcular_elemento(i, j, k + 1)
-
+            return self.matriz[i][k] * otra.matriz[k][j] + calcular_elemento(i, j, k - 1)
+            # b + T(n-1)  --> n+1 sería el cambio, pero le revertimos porque va de 0 a n, y evaluamos como si fuese de n a 0
+            # T(0:tam) = a
+            # T(1) = b + a
+            # T(2) = 2b + a
+            # T(2) = 3b + a
+            # T(n) = bn + a
         def llenar(i, j):
             if i == len(self.matriz):
                 return
             if j == len(otra.matriz[0]):
                 llenar(i + 1, 0)
                 return
-            resultado.matriz[i][j] = calcular_elemento(i, j, 0)
+            resultado.matriz[i][j] = calcular_elemento(i, j, len(self.matriz[0]) - 1)
             llenar(i, j + 1)
+            # b + T(n-1)  --> n+1 sería el cambio, pero le revertimos porque va de 0 a n, y evaluamos como si fuese de n a 0
+            # T(0:tam) = a
+            # T(1) = b + a
+            # T(2) = 2b + a
+            # T(2) = 3b + a
+            # T(n) = bn + a
 
         llenar(0, 0)
         return resultado
