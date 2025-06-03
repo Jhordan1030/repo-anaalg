@@ -166,11 +166,12 @@ class Matriz:
                 return 0
             return self.matriz[i][k] * otra.matriz[k][j] + calcular_elemento(i, j, k - 1)
             # b + T(n-1)  --> n+1 sería el cambio, pero le revertimos porque va de 0 a n, y evaluamos como si fuese de n a 0
-            # T(0:tam) = a
-            # T(1) = b + a
-            # T(2) = 2b + a
+            # T(-1:tam) = a
+            # T(0) = b + a
+            # T(1) = 2b + a
             # T(2) = 3b + a
-            # T(n) = bn + a
+            # T(3) = 4b + a
+            # T(n) = bn + a   b(n+1)+a
         def llenar(i, j):
             if i < 0:
                 return
@@ -180,13 +181,13 @@ class Matriz:
             resultado.matriz[i][j] = calcular_elemento(i, j, len(self.matriz[0]) - 1) #bn+a
             llenar(i, j - 1)
             # b + T(n-1)  --> n+1 sería el cambio, pero le revertimos porque va de 0 a n, y evaluamos como si fuese de n a 0
-            # T(0:tam) = a
-            # T(1) = b + a
-            # T(2) = 2b + a
+            # T(-1:tam) = a
+            # T(0) = b + a
+            # T(1) = 2b + a
             # T(2) = 3b + a
-            # T(n) = bn + a
-            # b = bn+a
-            # T(n) = n(bn+a) + a = bn²+an+a
+            # T(n) = bn + a  b(n+1)+a
+            # b = bn+b+a
+            # T(n) = n(bn+b+a) + a = bn²+an+bn+a = bn+n(a+b)+a
 
         llenar(len(self.matriz) - 1, len(otra.matriz[0]) - 1)
         return resultado
