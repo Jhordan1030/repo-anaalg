@@ -1,23 +1,54 @@
-from ArbolBinario import ArbolBinario
-
+import Ejercicio9, Ejercicio10
 def main():
-    arbol = ArbolBinario()
-    numeros = [8, 3, 10, 1, 6, 14, 4, 7, 13]
+    while True:
+        print("\nBienvenido al programa de Trabajo 3")
+        print("Menú de opciones:")
+        print("1. Ejercicio 1")
+        print("2. Ejercicio 2")
+        print("3. Ejercicio 3")
+        print("4. Ejercicio 4")
+        print("5. Ejercicio 5")
+        print("6. Ejercicio 6")
+        print("7. Ejercicio 7")
+        print("8. Ejercicio 8")
+        print("9. Contar hojas (recursivo)")
+        print("10. Camino a nodo (recursivo)")
+        print("11. Salir")
+        opcion = input("Seleccione una opción: ")
 
-    for num in numeros:
-        arbol.insertar(num)
-
-    print("Recorrido inorden del árbol binario:")
-    print(arbol.inorden())
-    
-    print("Número de hojas en el árbol binario:")
-    print(arbol.contar_hojas())
-    
-    print("Camino a nodo 7:")
-    print(arbol.camino_a_nodo(7))
-
-    print("Imprimir árbol:")
-    arbol.imprimir_arbol()
+        if opcion == "1":
+            # Ejercicio 1
+            pass
+        elif opcion == "2":
+            # Ejercicio 2
+            pass
+        elif opcion == "3":
+            # Ejercicio 3
+            pass
+        elif opcion == "4":
+            # Ejercicio 4
+            pass
+        elif opcion == "5":
+            # Ejercicio 5
+            pass
+        elif opcion == "6":
+            # Ejercicio 6
+            pass
+        elif opcion == "7":
+            # Ejercicio 7
+            pass
+        elif opcion == "8":
+            # Ejercicio 8
+            pass
+        elif opcion == "9":
+            Ejercicio9.main()
+        elif opcion == "10":
+            Ejercicio10.main()
+        elif opcion == "11":
+            print("Saliendo del programa.")
+            break
+        else:
+            print("Opción no válida. Intente de nuevo.")
 
 if __name__ == "__main__":
     main()
