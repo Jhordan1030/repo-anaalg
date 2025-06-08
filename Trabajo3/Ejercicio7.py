@@ -75,7 +75,7 @@ class GeneradorMatrizEspiral:
         for fila in self.matriz:
             print(fila)
 
-if __name__ == "__main__":
+def main():
     filas = int(input("Ingrese el numero de filas: "))
     columnas = int(input("Ingrese el numero de columnas: "))
     print("Matriz generada de forma secuencial:")

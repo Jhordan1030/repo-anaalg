@@ -1,4 +1,4 @@
-import Ejercicio9, Ejercicio10
+import Ejercicio3, Ejercicio7, Ejercicio8, Ejercicio9, Ejercicio10
 def main():
     while True:
         print("\nBienvenido al programa de Trabajo 3")
@@ -23,7 +23,7 @@ def main():
             # Ejercicio 2
             pass
         elif opcion == "3":
-            # Ejercicio 3
+            Ejercicio3.main()  # Llamada al ejercicio 3
             pass
         elif opcion == "4":
             # Ejercicio 4
@@ -35,10 +35,10 @@ def main():
             # Ejercicio 6
             pass
         elif opcion == "7":
-            # Ejercicio 7
+            Ejercicio7.main()  # Llamada al ejercicio 7
             pass
         elif opcion == "8":
-            # Ejercicio 8
+            Ejercicio8.main()  # Llamada al ejercicio 8
             pass
         elif opcion == "9":
             Ejercicio9.main()

@@ -52,23 +52,24 @@ def procesar_arreglo_recursivo(A, n, indice=0, B=None):
 def generar_arreglo_aleatorio(tamaño):
     return [random.randint(1, 100) for _ in range(tamaño)]
 
-# Solicitar al usuario el tamaño del arreglo y el número n para buscar múltiplos de sus dígitos
-tamaño_arreglo = int(input("Introduce el tamaño del arreglo: "))
+def main():
+    # Solicitar al usuario el tamaño del arreglo y el número n para buscar múltiplos de sus dígitos
+    tamaño_arreglo = int(input("Introduce el tamaño del arreglo: "))
 
-# Generar el arreglo aleatorio con números entre 1 y 100
-A = generar_arreglo_aleatorio(tamaño_arreglo)
+    # Generar el arreglo aleatorio con números entre 1 y 100
+    A = generar_arreglo_aleatorio(tamaño_arreglo)
 
-# Imprimir el arreglo A primero
-print("\nArreglo A:", A)
-n = int(input("Introduce el número para buscar múltiplos de sus dígitos: "))
+    # Imprimir el arreglo A primero
+    print("\nArreglo A:", A)
+    n = int(input("Introduce el número para buscar múltiplos de sus dígitos: "))
 
-# Llamada recursiva para procesar el arreglo
-B_recursivo = procesar_arreglo_recursivo(A, n)
+    # Llamada recursiva para procesar el arreglo
+    B_recursivo = procesar_arreglo_recursivo(A, n)
 
-# Llamada secuencial para procesar el arreglo
-B_secuencial = procesar_arreglo_secuencial(A, n)
+    # Llamada secuencial para procesar el arreglo
+    B_secuencial = procesar_arreglo_secuencial(A, n)
 
-# Imprimir los resultados en el orden solicitado
-print("\nNúmero para múltiplos de los dígitos:", n)
-print("Arreglo B (Secuencial):", B_secuencial)
-print("Arreglo B (Recursivo):", B_recursivo)
+    # Imprimir los resultados en el orden solicitado
+    print("\nNúmero para múltiplos de los dígitos:", n)
+    print("Arreglo B (Secuencial):", B_secuencial)
+    print("Arreglo B (Recursivo):", B_recursivo)

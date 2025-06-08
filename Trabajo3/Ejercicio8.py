@@ -75,14 +75,14 @@ class ArbolBinario:
             else:
                 self._insertar_recursivo(nodo.derecho, valor)
 
+def main():
+    arbol = ArbolBinario()
+    valores = [4, 2, 6, 1, 3, 5, 7]
+    for valor in valores:
+        arbol.insertar(valor)
 
-arbol = ArbolBinario()
-valores = [4, 2, 6, 1, 3, 5, 7]
-for valor in valores:
-    arbol.insertar(valor)
+    print("=== MÉTODOS SECUENCIALES ===")
+    print("Preorden:", arbol.preorden_secuencial())
 
-print("=== MÉTODOS SECUENCIALES ===")
-print("Preorden:", arbol.preorden_secuencial())
-
-print("\n=== MÉTODOS RECURSIVOS ===")
-print("Preorden:", arbol.preorden_recursivo()) 
+    print("\n=== MÉTODOS RECURSIVOS ===")
+    print("Preorden:", arbol.preorden_recursivo()) 
