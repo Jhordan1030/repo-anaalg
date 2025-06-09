@@ -4,7 +4,7 @@ def main():
     # Crear una matriz de 3x3
     fil = int(input("Ingrese el número de filas: "))
     col = int(input("Ingrese el número de columnas: "))
-    matriz = Matriz(fil, col)
+    matriz = Matriz(filas=fil, columnas=col)
     
     # Llenar la matriz con números aleatorios entre 1 y 100
     matriz.llenar_espiral_fibonacci()
