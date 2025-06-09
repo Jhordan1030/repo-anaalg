@@ -12,60 +12,36 @@ class Matriz:
         else:
             self.matriz = [[0 for _ in range(3)] for _ in range(3)]
 
-    def get_matriz(self):
-        return self.matriz
-
-    def set_matriz(self, matriz):
-        self.matriz = matriz
-
-    def filas(self):
-        return len(self.matriz)
-
-    def columnas(self):
-        return len(self.matriz[0])
-
-    def get_valor(self, m, n):
-        return self.matriz[m][n]
-
-    def ingresar(self, num, fil, col):
-        self.matriz[fil][col] = num
-        
     def fibonacci(self, n):
-        """Versión iterativa más eficiente de Fibonacci"""
+        if not hasattr(self, '_fib_memo'):
+            self._fib_memo = {}
+        
+        if n in self._fib_memo:
+            return self._fib_memo[n]
+        
         if n <= 1:
-            return n
-        a, b = 0, 1
-        for _ in range(2, n + 1):
-            a, b = b, a + b
-        return b
+            result = n
+        else:
+            result = self.fibonacci(n - 1) + self.fibonacci(n - 2)
+        
+        self._fib_memo[n] = result
+        return result
     
     def factorial(self, n):
-        """Versión iterativa más eficiente de factorial"""
+        if not hasattr(self, '_fact_memo'):
+            self._fact_memo = {}
+            
+        if n in self._fact_memo:
+            return self._fact_memo[n]
+            
         if n <= 1:
-            return 1
-        resultado = 1
-        for i in range(2, n + 1):
-            resultado *= i
-        return resultado
-    
-    def llenar_aleatorio(self, min=1, max=100):
-        for fila in range(len(self.matriz)):
-            for columna in range(len(self.matriz[0])):
-                self.matriz[fila][columna] = random.randint(min, max)
+            result = 1
+        else:
+            result = n * self.factorial(n - 1)
+            
+        self._fact_memo[n] = result
+        return result
 
-    def sumar_columnas(self):
-        suma = [0] * len(self.matriz[0])
-        for columna in range(len(self.matriz[0])):
-            for fila in range(len(self.matriz)):
-                suma[columna] += self.matriz[fila][columna]
-        return suma
-
-    def sumar_filas(self):
-        suma = [0] * len(self.matriz)
-        for fila in range(len(self.matriz)):
-            for columna in range(len(self.matriz[0])):
-                suma[fila] += self.matriz[fila][columna]
-        return suma
 
     def sumar_filas_recursivo(self):
         suma = [0] * len(self.matriz)
@@ -81,87 +57,134 @@ class Matriz:
                 return 0
             return self.matriz[fila][col] + _sumar_fila_rec(fila, col - 1)
         
-        # Definir la función interna antes de usarla
         self._sumar_fila_rec = _sumar_fila_rec
         sumar_fila(0)
         return suma
     
     def llenar_espiral_fibonacci(self):
-        """Llena la matriz con fracciones Fibonacci/factorial en patrón espiral desde abajo"""
         filas = len(self.matriz)
         columnas = len(self.matriz[0])
-        contador = 1
+        self._llenar_fila_espiral(filas - 1, columnas, 1)
+
+    def _llenar_fila_espiral(self, fila, columnas, contador):
+        if fila < 0:
+            return contador
         
-        # Llenar desde la fila inferior hacia arriba
-        for fila in range(filas - 1, -1, -1):
-            if (filas - 1 - fila) % 2 == 0:  # Filas pares desde abajo: izquierda a derecha
-                col_range = range(columnas)
-            else:  # Filas impares desde abajo: derecha a izquierda
-                col_range = range(columnas - 1, -1, -1)
-            
-            for col in col_range:
-                fib = self.fibonacci(contador)
-                fact = self.factorial(contador)
-                # Almacenar como Fraction para mantener precisión
-                self.matriz[fila][col] = Fraction(fib, fact)
-                contador += 1
+        # Determinar dirección según la fila (desde abajo)
+        if (len(self.matriz) - 1 - fila) % 2 == 0:  # Filas pares desde abajo: izquierda a derecha
+            contador = self._llenar_fila_direccion(fila, 0, columnas, contador, 1)
+        else:  # Filas impares desde abajo: derecha a izquierda
+            contador = self._llenar_fila_direccion(fila, columnas - 1, columnas, contador, -1)
+        
+        # Llamada recursiva para la fila anterior
+        return self._llenar_fila_espiral(fila - 1, columnas, contador)
+    
+    def _llenar_fila_direccion(self, fila, col_inicio, total_cols, contador, direccion):
+        """Función recursiva para llenar una fila en una dirección específica"""
+        if direccion == 1 and col_inicio >= total_cols:  # Izquierda a derecha
+            return contador
+        if direccion == -1 and col_inicio < 0:  # Derecha a izquierda
+            return contador
+        
+        # Llenar la celda actual
+        fib = self.fibonacci(contador)
+        fact = self.factorial(contador)
+        self.matriz[fila][col_inicio] = Fraction(fib, fact)
+        
+        # Llamada recursiva para la siguiente columna
+        return self._llenar_fila_direccion(fila, col_inicio + direccion, total_cols, contador + 1, direccion)
 
     def llenar_fibonacci_secuencial(self):
-        """Llena la matriz con Fib(n)/n! de forma secuencial (fila por fila)"""
-        contador = 1
-        for fila in range(len(self.matriz)):
-            for col in range(len(self.matriz[0])):
-                fib = self.fibonacci(contador)
-                fact = self.factorial(contador)
-                self.matriz[fila][col] = Fraction(fib, fact)
-                contador += 1
+        """Versión recursiva para llenar secuencialmente con Fib(n)/n!"""
+        def llenar_recursivo(fila, col, contador):
+            if fila >= len(self.matriz):
+                return
+            if col >= len(self.matriz[0]):
+                return llenar_recursivo(fila + 1, 0, contador)
+            
+            fib = self.fibonacci(contador)
+            fact = self.factorial(contador)
+            self.matriz[fila][col] = Fraction(fib, fact)
+            llenar_recursivo(fila, col + 1, contador + 1)
+        
+        llenar_recursivo(0, 0, 1)
     
     def decimal_a_fraccion(self, numero):
-        """Convierte un número a fracción, manejando diferentes tipos"""
-        if isinstance(numero, Fraction):
-            return f"{numero.numerator}/{numero.denominator}"
-        elif isinstance(numero, (int, float)):
-            if abs(numero) < 1e-15:  # Prácticamente cero
-                return "0/1"
-            fraccion = Fraction(numero).limit_denominator(10**12)
-            return f"{fraccion.numerator}/{fraccion.denominator}"
-        else:
-            # Para otros tipos, intentar convertir a float primero
-            try:
-                valor = float(numero)
+        """Función recursiva para convertir diferentes tipos a fracción"""
+        def procesar_tipo(valor):
+            if isinstance(valor, Fraction):
+                return f"{valor.numerator}/{valor.denominator}"
+            elif isinstance(valor, (int, float)):
+                if abs(valor) < 1e-15:
+                    return "0/1"
                 fraccion = Fraction(valor).limit_denominator(10**12)
                 return f"{fraccion.numerator}/{fraccion.denominator}"
-            except (ValueError, TypeError):
-                return str(numero)
+            else:
+                try:
+                    return procesar_tipo(float(valor))
+                except (ValueError, TypeError):
+                    return str(valor)
+        
+        return procesar_tipo(numero)
     
     def sumar_todos_elementos(self):
-        """Suma todos los elementos de la matriz y devuelve como Fraction"""
-        suma_total = Fraction(0)
-        for fila in self.matriz:
-            for elemento in fila:
-                if isinstance(elemento, Fraction):
-                    suma_total += elemento
-                else:
-                    suma_total += Fraction(elemento)
-        return suma_total
+        """Versión recursiva para sumar todos los elementos"""
+        def sumar_recursivo(fila, col, suma_actual):
+            if fila >= len(self.matriz):
+                return suma_actual
+            if col >= len(self.matriz[0]):
+                return sumar_recursivo(fila + 1, 0, suma_actual)
+            
+            elemento = self.matriz[fila][col]
+            if isinstance(elemento, Fraction):
+                nueva_suma = suma_actual + elemento
+            else:
+                nueva_suma = suma_actual + Fraction(elemento)
+            
+            return sumar_recursivo(fila, col + 1, nueva_suma)
+        
+        return sumar_recursivo(0, 0, Fraction(0))
     
     def __str__(self):
-        """Representación en cadena mostrando fracciones"""
+        """Representación recursiva en cadena mostrando fracciones"""
         def fila_a_str(idx):
             if idx == len(self.matriz):
                 return ""
-            fila_str = "\t".join(self.decimal_a_fraccion(x) for x in self.matriz[idx])
+            fila_str = self._generar_fila_str(idx, 0, [])
             resto = fila_a_str(idx + 1)
             return fila_str if resto == "" else fila_str + "\n" + resto
+        
         return fila_a_str(0)
     
+    def _generar_fila_str(self, fila, col, elementos):
+        """Función recursiva auxiliar para generar string de una fila"""
+        if col >= len(self.matriz[0]):
+            return "\t".join(elementos)
+        
+        elemento_str = self.decimal_a_fraccion(self.matriz[fila][col])
+        elementos.append(elemento_str)
+        return self._generar_fila_str(fila, col + 1, elementos)
+    
     def imprimir(self):
-        """Imprime la matriz con valores decimales"""
         def fila_a_str(idx):
             if idx == len(self.matriz):
                 return ""
-            fila_str = "\t".join(str(float(x)) if isinstance(x, Fraction) else str(x) 
-                               for x in self.matriz[idx])
+            fila_str = self._generar_fila_decimal_str(idx, 0, [])
             resto = fila_a_str(idx + 1)
             return fila_str if resto == "" else fila_str + "\n" + resto
+        
         return fila_a_str(0)
+    
+    def _generar_fila_decimal_str(self, fila, col, elementos):
+        """Función recursiva auxiliar para generar string decimal de una fila"""
+        if col >= len(self.matriz[0]):
+            return "\t".join(elementos)
+        
+        elemento = self.matriz[fila][col]
+        if isinstance(elemento, Fraction):
+            elemento_str = str(float(elemento))
+        else:
+            elemento_str = str(elemento)
+        
+        elementos.append(elemento_str)
+        return self._generar_fila_decimal_str(fila, col + 1, elementos)
