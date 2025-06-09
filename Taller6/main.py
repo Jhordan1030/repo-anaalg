@@ -14,9 +14,12 @@ def main():
     print(matriz)
     
     # Sumar las filas y columnas
+    print("Suma de las filas:")
+    fila = int(input("Ingrese el número de fila a sumar: "))
     suma_filas = matriz.sumar_filas_recursivo()
-    suma_columnas = matriz.sumar_columnas()
-    
-    print("\nSuma de las filas:", suma_filas)
-    print("Suma de las columnas:", suma_columnas)
+    #mapear la suma de las filas
+    if 1 <= fila <= len(suma_filas):
+        print(f"Suma de la fila {fila}: {suma_filas[fila - 1]}")
+    else:
+        print("Número de fila fuera de rango.")
 main()

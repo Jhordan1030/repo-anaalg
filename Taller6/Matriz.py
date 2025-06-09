@@ -1,4 +1,5 @@
 import random
+from fractions import Fraction
 class Matriz:
     def __init__(self, matriz=None, filas=None, columnas=None):
         if matriz is not None:
@@ -32,6 +33,11 @@ class Matriz:
         if n <= 1:
             return n
         return self.fibonacci(n - 1) + self.fibonacci(n - 2)
+    
+    def factorial(self, n):
+        if n <= 1:
+            return 1
+        return n * self.factorial(n - 1)
     
     def llenar_aleatorio(self, min=1, max=100):
         for fila in range(len(self.matriz)):
@@ -74,18 +80,22 @@ class Matriz:
         for fila in range(filas - 1, -1, -1):  # Comenzamos desde abajo
             if (filas - 1 - fila) % 2 == 0:  # Si es una fila par desde abajo
                 for col in range(columnas):  # Movimiento hacia la derecha
-                    self.matriz[fila][col] = self.fibonacci(contador)
+                    self.matriz[fila][col] = self.fibonacci(contador)/ self.factorial(contador)
                     contador += 1
             else:  # Si es una fila impar desde abajo
                 for col in range(columnas - 1, -1, -1):  # Movimiento hacia la izquierda
-                    self.matriz[fila][col] = self.fibonacci(contador)
+                    self.matriz[fila][col] = self.fibonacci(contador)/ self.factorial(contador)
                     contador += 1
+                    
+    def decimal_a_fraccion(self, numero):
+        fraccion = Fraction(numero).limit_denominator()
+        return f"{fraccion.numerator}/{fraccion.denominator}"
     
     def __str__(self):
         def fila_a_str(idx):
             if idx == len(self.matriz):
                 return ""
-            fila_str = "\t".join(map(str, self.matriz[idx]))
+            fila_str = "\t".join(self.decimal_a_fraccion(x) for x in self.matriz[idx])
             resto = fila_a_str(idx + 1)
             return fila_str if resto == "" else fila_str + "\n" + resto
         return fila_a_str(0)
