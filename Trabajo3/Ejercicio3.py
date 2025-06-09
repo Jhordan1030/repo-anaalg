@@ -19,16 +19,16 @@ def procesar_arreglo_secuencial(A, n):
 def suma_digitos_multiplo_recursivo(numero, n, indice=0, suma=0):
     digitos = str(numero)  # Convertimos el número en string para manejar los dígitos
 
-    # Condición de salida cuando no queden más dígitos
-    if indice == len(digitos):
+    # Condición de salida: si hemos procesado todos los dígitos o si n llega a 0
+    if indice == len(digitos) or n == 0:
         return suma
 
     digito = int(digitos[indice])
     if digito % n == 0:  # Comparamos si el dígito es múltiplo de n
         suma += digito  # Sumamos el dígito si es múltiplo de n
 
-    # Llamada recursiva con índice incrementado, procesando un dígito a la vez
-    return suma_digitos_multiplo_recursivo(numero, n, indice + 1, suma)
+    # Llamada recursiva con índice incrementado y n decrementado
+    return suma_digitos_multiplo_recursivo(numero, n - 1, indice + 1, suma)
 
 # Función para procesar el arreglo A usando recursión con la condición T(n-1)
 def procesar_arreglo_recursivo(A, n, indice=0, B=None):
@@ -73,3 +73,7 @@ def main():
     print("\nNúmero para múltiplos de los dígitos:", n)
     print("Arreglo B (Secuencial):", B_secuencial)
     print("Arreglo B (Recursivo):", B_recursivo)
+
+if __name__ == "__main__":
+    main()
+
