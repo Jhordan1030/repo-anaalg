@@ -24,7 +24,6 @@ def main():
             pass
         elif opcion == "3":
             Ejercicio3.main()  # Llamada al ejercicio 3
-            pass
         elif opcion == "4":
             # Ejercicio 4
             pass
@@ -36,10 +35,8 @@ def main():
             pass
         elif opcion == "7":
             Ejercicio7.main()  # Llamada al ejercicio 7
-            pass
         elif opcion == "8":
             Ejercicio8.main()  # Llamada al ejercicio 8
-            pass
         elif opcion == "9":
             Ejercicio9.main()
         elif opcion == "10":
