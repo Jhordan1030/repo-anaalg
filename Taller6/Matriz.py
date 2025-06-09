@@ -47,18 +47,17 @@ class Matriz:
         suma = [0] * len(self.matriz)
         
         def sumar_fila(idx):
-            if idx == len(self.matriz):
+            if idx < 0:  # Condición base para detener la recursión
                 return
-            suma[idx] = self._sumar_fila_rec(idx, len(self.matriz[0]) - 1)
-            sumar_fila(idx + 1)
-            
+            suma[idx] = _sumar_fila_rec(idx, len(self.matriz[0]) - 1)
+            sumar_fila(idx - 1)  # Recursión con fila decrementada (cumple la condición metodo(n-1))
+
         def _sumar_fila_rec(fila, col):
             if col < 0:
                 return 0
             return self.matriz[fila][col] + _sumar_fila_rec(fila, col - 1)
         
-        self._sumar_fila_rec = _sumar_fila_rec
-        sumar_fila(0)
+        sumar_fila(len(self.matriz) - 1)  # Comenzar desde la última fila
         return suma
     
     def llenar_espiral_fibonacci(self):
