@@ -75,17 +75,24 @@ class Matriz:
     def llenar_espiral_fibonacci(self):
         filas = len(self.matriz)
         columnas = len(self.matriz[0])
-        contador = 1
+        self._llenar_fila(filas - 1, columnas, 1)
+
+    def _llenar_fila(self, fila, columnas, contador):
+        if fila < 0:
+            return
         
-        for fila in range(filas - 1, -1, -1):  # Comenzamos desde abajo
-            if (filas - 1 - fila) % 2 == 0:  # Si es una fila par desde abajo
-                for col in range(columnas):  # Movimiento hacia la derecha
-                    self.matriz[fila][col] = self.fibonacci(contador)/ self.factorial(contador)
-                    contador += 1
-            else:  # Si es una fila impar desde abajo
-                for col in range(columnas - 1, -1, -1):  # Movimiento hacia la izquierda
-                    self.matriz[fila][col] = self.fibonacci(contador)/ self.factorial(contador)
-                    contador += 1
+        if (fila % 2 == (len(self.matriz) - 1) % 2):  # Determina dirección según paridad desde abajo
+            col_range = range(columnas)  # derecha
+        else:
+            col_range = range(columnas - 1, -1, -1)  # izquierda
+
+        for col in col_range:
+            self.matriz[fila][col] = self.fibonacci(contador) / self.factorial(contador)
+            contador += 1
+
+        # Llama recursiva para la fila anterior
+        self._llenar_fila(fila - 1, columnas, contador)
+    
                     
     def decimal_a_fraccion(self, numero):
         fraccion = Fraction(numero).limit_denominator()
