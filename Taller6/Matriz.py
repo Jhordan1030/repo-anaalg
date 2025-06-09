@@ -67,6 +67,39 @@ class Matriz:
         sumar_fila(0)
         return suma
     
+    def llenar_espiral_fibonacci(self):
+        n = len(self.matriz)
+        m = len(self.matriz[0])
+        total = n * m
+
+        def siguiente_direccion(direccion):
+            # derecha -> arriba -> izquierda -> abajo
+            return {
+                (0, 1): (-1, 0),   # derecha a arriba
+                (-1, 0): (0, -1),  # arriba a izquierda
+                (0, -1): (1, 0),   # izquierda a abajo
+                (1, 0): (0, 1),    # abajo a derecha
+            }[direccion]
+
+        def en_limite(fila, col):
+            return (0 <= fila < n) and (0 <= col < m) and self.matriz[fila][col] == 0
+
+        def llenar(fila, col, direccion, contador):
+            if contador > total:
+                return
+            self.matriz[fila][col] = self.fibonacci(contador)
+            # Calcular siguiente posición
+            sig_fila = fila + direccion[0]
+            sig_col = col + direccion[1]
+            if not en_limite(sig_fila, sig_col):
+                direccion = siguiente_direccion(direccion)
+                sig_fila = fila + direccion[0]
+                sig_col = col + direccion[1]
+            llenar(sig_fila, sig_col, direccion, contador + 1)
+
+        # Comienza en la esquina inferior izquierda, dirección derecha
+        llenar(n - 1, 0, (0, 1), 1)
+    
     def __str__(self):
         def fila_a_str(idx):
             if idx == len(self.matriz):
