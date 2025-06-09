@@ -2,7 +2,7 @@ from Matriz import Matriz
 
 def main():
     # Crear una matriz de 3x3
-    matriz = Matriz(filas=3, columnas=3)
+    matriz = Matriz(filas=3, columnas=5)
     
     # Llenar la matriz con números aleatorios entre 1 y 100
     matriz.llenar_espiral_fibonacci()
