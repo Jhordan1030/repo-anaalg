@@ -57,13 +57,12 @@ class Matriz:
         def sumar_fila(idx):
             if idx == len(self.matriz):
                 return
-            suma[idx] = self._sumar_fila_rec(idx, 0)
+            suma[idx] = _sumar_fila_rec(idx, len(self.matriz[0]) - 1)
             sumar_fila(idx + 1)
         def _sumar_fila_rec(fila, col):
-            if col == len(self.matriz[0]):
+            if col < 0:
                 return 0
-            return self.matriz[fila][col] + _sumar_fila_rec(fila, col + 1)
-        self._sumar_fila_rec = _sumar_fila_rec  # Para acceso interno
+            return self.matriz[fila][col] + _sumar_fila_rec(fila, col - 1)
         sumar_fila(0)
         return suma
     

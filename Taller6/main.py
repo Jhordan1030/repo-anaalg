@@ -14,7 +14,7 @@ def main():
     print(matriz)
     
     # Sumar las filas y columnas
-    suma_filas = matriz.sumar_filas()
+    suma_filas = matriz.sumar_filas_recursivo()
     suma_columnas = matriz.sumar_columnas()
     
     print("\nSuma de las filas:", suma_filas)
