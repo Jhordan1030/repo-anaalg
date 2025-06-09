@@ -95,7 +95,10 @@ class Matriz:
     
                     
     def decimal_a_fraccion(self, numero):
-        fraccion = Fraction(numero).limit_denominator()
+        if abs(numero) < 1e-6 and numero != 0:
+           fraccion = Fraction(str(numero))
+        else:
+            fraccion = Fraction(numero).limit_denominator()
         return f"{fraccion.numerator}/{fraccion.denominator}"
     
     def __str__(self):
@@ -103,6 +106,15 @@ class Matriz:
             if idx == len(self.matriz):
                 return ""
             fila_str = "\t".join(self.decimal_a_fraccion(x) for x in self.matriz[idx])
+            resto = fila_a_str(idx + 1)
+            return fila_str if resto == "" else fila_str + "\n" + resto
+        return fila_a_str(0)
+    
+    def imprimir(self):
+        def fila_a_str(idx):
+            if idx == len(self.matriz):
+                return ""
+            fila_str = "\t".join(map(str, self.matriz[idx]))
             resto = fila_a_str(idx + 1)
             return fila_str if resto == "" else fila_str + "\n" + resto
         return fila_a_str(0)
