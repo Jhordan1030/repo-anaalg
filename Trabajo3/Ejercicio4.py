@@ -14,26 +14,21 @@ def es_simetrica_secuencial(matriz):
 
 
 # Método Recursivo para verificar si una matriz es simétrica
-def es_simetrica_recursiva(matriz, n=None, i=0, j=0):
-    # Obtener el tamaño de la matriz (suponemos que es cuadrada)
+def es_simetrica_recursiva(matriz, n=None):
+    # Inicialización: la primera vez, n = tamaño de la matriz
     if n is None:
         n = len(matriz)
-
-    # Si hemos recorrido toda la matriz
-    if i == n:
+    # Caso base: si la submatriz es de tamaño 0 ó 1, siempre es simétrica
+    if n <= 1:
         return True
 
-    # Si hemos llegado al final de la fila, avanzamos a la siguiente fila
-    if j == n:
-        return es_simetrica_recursiva(matriz, n - 1, i + 1, i + 1)  # Reducimos n
+    # 1) Comprobamos la última fila vs la última columna (índice n-1)
+    for i in range(n):
+        if matriz[n-1][i] != matriz[i][n-1]:
+            return False
 
-    # Verificamos si la matriz[i][j] es igual a la matriz[j][i]
-    if matriz[i][j] != matriz[j][i]:
-        return False
-
-    # Llamada recursiva para la siguiente posición
-    return es_simetrica_recursiva(matriz, n - 1, i, j + 1)  # Reducimos n
-
+    # 2) Reducimos el problema: ahora verificamos la submatriz (n-1)x(n-1)
+    return es_simetrica_recursiva(matriz, n-1)
 
 # Función para generar una matriz con números aleatorios entre 1 y 100
 def generar_matriz_aleatoria(tamaño):
