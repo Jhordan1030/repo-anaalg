@@ -3,9 +3,9 @@ import random
 # Método Secuencial para sumar los dígitos múltiplos de un número
 def suma_digitos_multiplo_secuencial(numero, n):
     suma = 0
-    for digito in str(numero):  # Recorremos cada dígito del número
-        if int(digito) % n == 0:  # Comparamos si el dígito es múltiplo de n
-            suma += int(digito)  # Sumamos los dígitos que sean múltiplos de n
+    for digito in str(numero):
+        if int(digito) % n == 0:
+            suma += int(digito)
     return suma
 
 # Función para procesar el arreglo A usando el método Secuencial
@@ -17,15 +17,15 @@ def procesar_arreglo_secuencial(A, n):
 
 # Método Recursivo para sumar los dígitos múltiplos de un número cumpliendo la condición T(n-1)
 def suma_digitos_multiplo_recursivo(numero, n, indice=0, suma=0):
-    digitos = str(numero)  # Convertimos el número en string para manejar los dígitos
+    digitos = str(numero)
 
     # Condición de salida: si hemos procesado todos los dígitos o si n llega a 0
     if indice == len(digitos) or n == 0:
         return suma
 
     digito = int(digitos[indice])
-    if digito % n == 0:  # Comparamos si el dígito es múltiplo de n
-        suma += digito  # Sumamos el dígito si es múltiplo de n
+    if digito % n == 0:
+        suma += digito
 
     # Llamada recursiva con índice incrementado y n decrementado
     return suma_digitos_multiplo_recursivo(numero, n - 1, indice + 1, suma)

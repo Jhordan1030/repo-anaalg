@@ -3,16 +3,16 @@ def main():
     while True:
         print("\nBienvenido al programa de Trabajo 3")
         print("Menú de opciones:")
-        print("1. Ejercicio 1")
-        print("2. Ejercicio 2")
-        print("3. Ejercicio 3")
-        print("4. Ejercicio 4")
-        print("5. Ejercicio 5")
-        print("6. Ejercicio 6")
-        print("7. Ejercicio 7")
-        print("8. Ejercicio 8")
-        print("9. Contar hojas (recursivo)")
-        print("10. Camino a nodo (recursivo)")
+        print("1. Sumar los elementos de un arreglo de n datos.")
+        print("2. Obtener el número mayor de los elementos de un arreglo de n datos.")
+        print("3. Sumar los dígitos múltiplos de un número de cada elemento del arreglo A, guardar la suma en un arreglo B.")
+        print("4. Verificar si una matriz es simétrica o no.")
+        print("5. Calcular la suma de los elementos de las filas impares de una matriz.")
+        print("6. Generar una matriz de orden nxn")
+        print("7. Generar una matriz de orden nxm")
+        print("8. Recorrer en profundidad (preorden, inorden, o postorden) en un árbol binario.")
+        print("9. Contar hojas en un árbol binario.")
+        print("10. Camino a nodo específico en un árbol binario.")
         print("11. Salir")
         opcion = input("Seleccione una opción: ")
 
@@ -25,14 +25,11 @@ def main():
         elif opcion == "3":
             Ejercicio3.main()  # Llamada al ejercicio 3
         elif opcion == "4":
-            # Ejercicio 4
-            pass
+            Ejercicio4.main()  # Llamada al ejercicio 4
         elif opcion == "5":
-            # Ejercicio 5
-            pass
+            Ejercicio5.main()  # Llamada al ejercicio 5
         elif opcion == "6":
-            # Ejercicio 6
-            pass
+            Ejercicio6.main()  # Llamada al ejercicio 6
         elif opcion == "7":
             Ejercicio7.main()  # Llamada al ejercicio 7
         elif opcion == "8":
