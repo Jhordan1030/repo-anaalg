@@ -73,24 +73,24 @@ public class OrdenamientoInsercion extends Matriz {
         return matrizOrdenada;
     }
 
-   private int[] aplicarOrdenamientoPorInsercion(int[] arregloDesordenado) {
-    for (int indiceActual = 1; indiceActual < arregloDesordenado.length; indiceActual++) {
-        int elementoAInsertar = arregloDesordenado[indiceActual];
-        int posicionComparacion = indiceActual - 1;
+    private int[] aplicarOrdenamientoPorInsercion(int[] arregloDesordenado) {
+        for (int indiceActual = 1; indiceActual < arregloDesordenado.length; indiceActual++) {
+            int elementoAInsertar = arregloDesordenado[indiceActual];
+            int posicionComparacion;
 
-        // Desplazar hacia la derecha los elementos mayores al valor que vamos a insertar
-        while (posicionComparacion >= 0 && arregloDesordenado[posicionComparacion] > elementoAInsertar) {
-            arregloDesordenado[posicionComparacion + 1] = arregloDesordenado[posicionComparacion];
-            posicionComparacion--;
+            for (posicionComparacion = indiceActual - 1; posicionComparacion >= 0; posicionComparacion--) {
+                if (arregloDesordenado[posicionComparacion] > elementoAInsertar) {
+                    arregloDesordenado[posicionComparacion + 1] = arregloDesordenado[posicionComparacion];
+                } else {
+                    break; // Se detiene cuando ya no se cumple la condición de ordenamiento
+                }
+            }
+
+            arregloDesordenado[posicionComparacion + 1] = elementoAInsertar;
         }
 
-        // Insertar el elemento en su posición correcta
-        arregloDesordenado[posicionComparacion + 1] = elementoAInsertar;
+        return arregloDesordenado;
     }
-
-    return arregloDesordenado;
-}
-
 
     public void imprimirOrdenamiento(int[][] matrizOrdenada) {
         for (int fila = 0; fila < matrizOrdenada.length; fila++) {
