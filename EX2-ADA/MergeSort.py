@@ -1,25 +1,23 @@
+import random
 import time
 
 # Algoritmo Merge Sort (Recursivo)
 def merge_sort(arr):
     if len(arr) <= 1:
-        return arr  # Caso base: si la lista tiene 1 o menos elementos, está ordenada
-    mid = len(arr) // 2  # Encuentra el punto medio
-    left_half = arr[:mid]  # Divide la mitad izquierda
-    right_half = arr[mid:]  # Divide la mitad derecha
+        return arr
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    right_half = arr[mid:]
 
-    # Recursión: ordena la mitad izquierda y derecha
     left_half = merge_sort(left_half)
     right_half = merge_sort(right_half)
 
-    # Fusiona las dos mitades ordenadas
     return merge(left_half, right_half)
 
 # Función para fusionar dos listas ordenadas
 def merge(left, right):
     result = []
     i = j = 0
-    # Compara los elementos de left y right, y fusiona las listas
     while i < len(left) and j < len(right):
         if left[i] < right[j]:
             result.append(left[i])
@@ -27,50 +25,78 @@ def merge(left, right):
         else:
             result.append(right[j])
             j += 1
-    # Si hay elementos restantes en left, se agregan al resultado
     result.extend(left[i:])
-    # Si hay elementos restantes en right, se agregan al resultado
     result.extend(right[j:])
     return result
 
-# Medir el tiempo de ejecución
-def measure_time(func, arr):
-    start_time = time.perf_counter_ns()
-    func(arr)
-    end_time = time.perf_counter_ns()
-    return end_time - start_time
+# Convertir lista a matriz
+def list_to_matrix(lst, rows, cols):
+    matrix = []
+    for i in range(rows):
+        row = lst[i * cols:(i + 1) * cols]
+        matrix.append(row)
+    return matrix
+
+# Generar números aleatorios
+def generate_random_numbers(count):
+    return [random.randint(1, 1000) for _ in range(count)]
+
+def main():
+    print("Seleccione una opción:")
+    print("1. Generar y ordenar una matriz")
+    print("2. Generar y ordenar un arreglo")
+    
+    opcion = int(input("Ingrese su opción (1 o 2): "))
+    
+    if opcion == 1:
+        # Opción para matriz
+        filas = int(input("Ingrese el número de filas: "))
+        columnas = int(input("Ingrese el número de columnas: "))
+        total = filas * columnas
+        
+        # Generar matriz con números aleatorios
+        numeros = generate_random_numbers(total)
+        matriz = list_to_matrix(numeros, filas, columnas)
+        
+        print("\nMatriz original:")
+        for fila in matriz:
+            print(fila)
+        
+        # Medir tiempo y ordenar
+        start_time = time.perf_counter_ns()
+        matriz_plana = [elem for row in matriz for elem in row]
+        matriz_ordenada_plana = merge_sort(matriz_plana)
+        matriz_ordenada = list_to_matrix(matriz_ordenada_plana, filas, columnas)
+        end_time = time.perf_counter_ns()
+        
+        print("\nMatriz ordenada:")
+        for fila in matriz_ordenada:
+            print(fila)
+        
+        print(f"\nTiempo de ejecución: {end_time - start_time} nanosegundos")
+    
+    elif opcion == 2:
+        # Opción para arreglo
+        longitud = int(input("Ingrese la longitud del arreglo: "))
+        
+        # Generar arreglo con números aleatorios
+        arreglo = generate_random_numbers(longitud)
+        
+        print("\nArreglo original:")
+        print(arreglo)
+        
+        # Medir tiempo y ordenar
+        start_time = time.perf_counter_ns()
+        arreglo_ordenado = merge_sort(arreglo.copy())
+        end_time = time.perf_counter_ns()
+        
+        print("\nArreglo ordenado:")
+        print(arreglo_ordenado)
+        
+        print(f"\nTiempo de ejecución: {end_time - start_time} nanosegundos")
+    
+    else:
+        print("Opción no válida. Por favor ingrese 1 o 2.")
 
 if __name__ == "__main__":
-    # Leer los números del archivo
-    archivo = 'numeros_aleatorios.txt'  # Asegúrate de que este archivo esté en el mismo directorio
-    def leer_numeros_archivo(filename):
-        with open(filename, 'r') as file:
-            # Leer todas las líneas y convertirlas a una lista de enteros
-            return [int(line.strip()) for line in file.readlines()]
-
-    # Leer los números desde el archivo
-    numeros = leer_numeros_archivo(archivo)
-
-    # Solicitar al usuario el tamaño del arreglo
-    size = int(input("Ingrese el tamaño del arreglo: "))
-
-    # Verificar si hay suficientes números en el archivo
-    if size <= len(numeros):
-        data = numeros[:size]
-    else:
-        print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
-        data = numeros
-
-    # Mostrar el arreglo original
-    print(f"Arreglo original: {data}")
-
-    # Ordenar y medir el tiempo de ejecución
-    data_ordenado = data.copy()  # Crear una copia del arreglo original para no modificar el original
-    data_ordenado = merge_sort(data_ordenado)  # Aplicar Merge Sort
-
-    # Medir el tiempo de ejecución
-    merge_time = measure_time(merge_sort, data.copy())
-
-    # Mostrar el arreglo ordenado
-    print(f"Arreglo ordenado: {data_ordenado}")
-    print(f"Tiempo de ejecución para Merge Sort: {merge_time} nanosegundos")
+    main()

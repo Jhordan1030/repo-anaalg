@@ -1,3 +1,4 @@
+import random
 import time
 
 # Algoritmo Cocktail Shaker Sort
@@ -25,40 +26,75 @@ def cocktail_shaker_sort(arr):
         start += 1
     return arr
 
-# Medir el tiempo de ejecución
-def measure_time(func, arr):
-    start_time = time.perf_counter_ns()
-    func(arr)
-    end_time = time.perf_counter_ns()
-    return end_time - start_time
+# Convertir lista a matriz
+def list_to_matrix(lst, rows, cols):
+    matrix = []
+    for i in range(rows):
+        row = lst[i * cols:(i + 1) * cols]
+        matrix.append(row)
+    return matrix
+
+# Generar números aleatorios
+def generate_random_numbers(count):
+    return [random.randint(1, 1000) for _ in range(count)]
+
+def main():
+    print("Seleccione una opción:")
+    print("1. Generar y ordenar una matriz")
+    print("2. Generar y ordenar un arreglo")
+    
+    opcion = int(input("Ingrese su opción (1 o 2): "))
+    
+    if opcion == 1:
+        # Opción para matriz
+        filas = int(input("Ingrese el número de filas: "))
+        columnas = int(input("Ingrese el número de columnas: "))
+        total = filas * columnas
+        
+        # Generar matriz con números aleatorios
+        numeros = generate_random_numbers(total)
+        matriz = list_to_matrix(numeros, filas, columnas)
+        
+        print("\nMatriz original:")
+        for fila in matriz:
+            print(fila)
+        
+        # Medir tiempo y ordenar
+        start_time = time.perf_counter_ns()
+        matriz_plana = [elem for row in matriz for elem in row]
+        cocktail_shaker_sort(matriz_plana)
+        matriz_ordenada = list_to_matrix(matriz_plana, filas, columnas)
+        end_time = time.perf_counter_ns()
+        
+        print("\nMatriz ordenada:")
+        for fila in matriz_ordenada:
+            print(fila)
+        
+        print(f"\nTiempo de ejecución: {end_time - start_time} nanosegundos")
+    
+    elif opcion == 2:
+        # Opción para arreglo
+        longitud = int(input("Ingrese la longitud del arreglo: "))
+        
+        # Generar arreglo con números aleatorios
+        arreglo = generate_random_numbers(longitud)
+        
+        print("\nArreglo original:")
+        print(arreglo)
+        
+        # Medir tiempo y ordenar
+        start_time = time.perf_counter_ns()
+        arreglo_ordenado = arreglo.copy()
+        cocktail_shaker_sort(arreglo_ordenado)
+        end_time = time.perf_counter_ns()
+        
+        print("\nArreglo ordenado:")
+        print(arreglo_ordenado)
+        
+        print(f"\nTiempo de ejecución: {end_time - start_time} nanosegundos")
+    
+    else:
+        print("Opción no válida. Por favor ingrese 1 o 2.")
 
 if __name__ == "__main__":
-    # Leer los números del archivo
-    archivo = 'numeros_aleatorios.txt'  # Asegúrate de que este archivo esté en el mismo directorio
-    def leer_numeros_archivo(filename):
-        with open(filename, 'r') as file:
-            # Leer todas las líneas y convertirlas a una lista de enteros
-            return [int(line.strip()) for line in file.readlines()]
-
-    numeros = leer_numeros_archivo(archivo)
-
-    # Solicitar al usuario el tamaño del arreglo
-    size = int(input("Ingrese el tamaño del arreglo: "))
-
-    # Verificar si hay suficientes números en el archivo
-    if size <= len(numeros):
-        data = numeros[:size]
-    else:
-        print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
-        data = numeros
-
-    # Mostrar el arreglo original
-    print(f"Arreglo original: {data}")
-
-    # Ordenar y medir el tiempo de ejecución
-    data_ordenado = data.copy()
-    cocktail_time = measure_time(cocktail_shaker_sort, data_ordenado)
-    
-    # Mostrar el arreglo final
-    print(f"Arreglo ordenado: {data_ordenado}")
-    print(f"Tiempo de ejecución para Cocktail Shaker Sort: {cocktail_time} nanosegundos")
+    main()
