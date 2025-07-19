@@ -19,7 +19,7 @@ def measure_time(func, data):
     else:  # Si es un arreglo
         func(data)
     end_time = time.perf_counter_ns()
-    return end_time - end_time
+    return end_time - start_time
 
 # Convertir una lista plana en una matriz
 def list_to_matrix(lst, rows, cols):
@@ -29,8 +29,11 @@ def list_to_matrix(lst, rows, cols):
         matrix.append(row)
     return matrix
 
-def generar_numeros_aleatorios(cantidad):
-    return [random.randint(1, 1000) for _ in range(cantidad)]
+# Leer los números del archivo
+def leer_numeros_archivo(filename):
+    with open(filename, 'r') as file:
+        # Leer todas las líneas y convertirlas a una lista de enteros
+        return [int(line.strip()) for line in file.readlines()]
 
 def main():
     print("Seleccione una opción:")
@@ -45,9 +48,15 @@ def main():
         columnas = int(input("Ingrese el número de columnas: "))
         total = filas * columnas
         
-        # Generar matriz con números aleatorios
-        numeros = generar_numeros_aleatorios(total)
-        matriz = list_to_matrix(numeros, filas, columnas)
+        # Leer los números del archivo
+        numeros = leer_numeros_archivo('numeros_aleatorios.txt')
+        
+        # Verificar si hay suficientes números en el archivo
+        if total <= len(numeros):
+            matriz = list_to_matrix(numeros[:total], filas, columnas)
+        else:
+            print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
+            matriz = list_to_matrix(numeros, filas, columnas)
         
         print("\nMatriz original:")
         for fila in matriz:
@@ -70,8 +79,15 @@ def main():
         # Opción para arreglo
         longitud = int(input("Ingrese la longitud del arreglo: "))
         
-        # Generar arreglo con números aleatorios
-        arreglo = generar_numeros_aleatorios(longitud)
+        # Leer los números del archivo
+        numeros = leer_numeros_archivo('numeros_aleatorios.txt')
+        
+        # Verificar si hay suficientes números en el archivo
+        if longitud <= len(numeros):
+            arreglo = numeros[:longitud]
+        else:
+            print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
+            arreglo = numeros
         
         print("\nArreglo original:")
         print(arreglo)

@@ -1,4 +1,3 @@
-import random
 import time
 from concurrent.futures import ThreadPoolExecutor
 
@@ -35,11 +34,13 @@ def merge(left, right):
 
 # Convertir lista a matriz
 def list_to_matrix(lst, rows, cols):
-    return [lst[i*cols:(i+1)*cols] for i in range(rows)]
+    return [lst[i * cols:(i + 1) * cols] for i in range(rows)]
 
-# Generar números aleatorios
-def generate_random_numbers(count):
-    return [random.randint(1, 10000) for _ in range(count)]
+# Leer números desde el archivo
+def leer_numeros_archivo(filename):
+    with open(filename, 'r') as file:
+        # Leer todas las líneas y convertirlas a una lista de enteros
+        return [int(line.strip()) for line in file.readlines()]
 
 def main():
     print("Seleccione una opción:")
@@ -68,8 +69,16 @@ def main():
                 print("Ingrese números enteros válidos.")
         
         total = filas * columnas
-        numeros = generate_random_numbers(total)
-        matriz = list_to_matrix(numeros, filas, columnas)
+        
+        # Leer los números desde el archivo
+        numeros = leer_numeros_archivo('numeros_aleatorios.txt')
+        
+        # Verificar si hay suficientes números en el archivo
+        if total <= len(numeros):
+            matriz = list_to_matrix(numeros[:total], filas, columnas)
+        else:
+            print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
+            matriz = list_to_matrix(numeros, filas, columnas)
         
         print("\nMatriz original:")
         for fila in matriz:
@@ -99,7 +108,15 @@ def main():
             except ValueError:
                 print("Ingrese un número entero válido.")
         
-        arreglo = generate_random_numbers(longitud)
+        # Leer los números desde el archivo
+        numeros = leer_numeros_archivo('numeros_aleatorios.txt')
+        
+        # Verificar si hay suficientes números en el archivo
+        if longitud <= len(numeros):
+            arreglo = numeros[:longitud]
+        else:
+            print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
+            arreglo = numeros
         
         print("\nArreglo original:")
         print(arreglo)

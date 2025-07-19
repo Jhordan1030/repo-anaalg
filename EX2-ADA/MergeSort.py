@@ -1,4 +1,3 @@
-import random
 import time
 
 # Algoritmo Merge Sort (Recursivo)
@@ -37,9 +36,11 @@ def list_to_matrix(lst, rows, cols):
         matrix.append(row)
     return matrix
 
-# Generar números aleatorios
-def generate_random_numbers(count):
-    return [random.randint(1, 1000) for _ in range(count)]
+# Leer números del archivo
+def leer_numeros_archivo(filename):
+    with open(filename, 'r') as file:
+        # Leer todas las líneas y convertirlas a una lista de enteros
+        return [int(line.strip()) for line in file.readlines()]
 
 def main():
     print("Seleccione una opción:")
@@ -54,9 +55,15 @@ def main():
         columnas = int(input("Ingrese el número de columnas: "))
         total = filas * columnas
         
-        # Generar matriz con números aleatorios
-        numeros = generate_random_numbers(total)
-        matriz = list_to_matrix(numeros, filas, columnas)
+        # Leer los números desde el archivo
+        numeros = leer_numeros_archivo('numeros_aleatorios.txt')
+        
+        # Verificar si hay suficientes números en el archivo
+        if total <= len(numeros):
+            matriz = list_to_matrix(numeros[:total], filas, columnas)
+        else:
+            print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
+            matriz = list_to_matrix(numeros, filas, columnas)
         
         print("\nMatriz original:")
         for fila in matriz:
@@ -79,8 +86,15 @@ def main():
         # Opción para arreglo
         longitud = int(input("Ingrese la longitud del arreglo: "))
         
-        # Generar arreglo con números aleatorios
-        arreglo = generate_random_numbers(longitud)
+        # Leer los números desde el archivo
+        numeros = leer_numeros_archivo('numeros_aleatorios.txt')
+        
+        # Verificar si hay suficientes números en el archivo
+        if longitud <= len(numeros):
+            arreglo = numeros[:longitud]
+        else:
+            print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
+            arreglo = numeros
         
         print("\nArreglo original:")
         print(arreglo)
