@@ -95,7 +95,7 @@ def main():
         for fila in matriz_ordenada:
             print(fila)
         
-        print(f"\nTiempo de ejecución: {(end_time - start_time)/1e6:.2f} milisegundos")
+        print(f"\nTiempo de ejecución: {end_time - start_time} nanosegundos")
     
     elif opcion == 2:
         # Opción para arreglo
@@ -129,7 +129,7 @@ def main():
         print("\nArreglo ordenado:")
         print(arreglo_ordenado)
         
-        print(f"\nTiempo de ejecución: {(end_time - start_time)/1e6:.2f} milisegundos")
+        print(f"\nTiempo de ejecución: {end_time - start_time} nanosegundos")
 
 if __name__ == "__main__":
     main()
