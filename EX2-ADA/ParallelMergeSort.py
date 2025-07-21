@@ -1,46 +1,46 @@
+import random
 import time
 from concurrent.futures import ThreadPoolExecutor
 
 # Algoritmo Merge Sort paralelo
-def merge_sort_parallel(arr):
-    if len(arr) <= 1:
-        return arr
-    mid = len(arr) // 2
-    left = arr[:mid]
-    right = arr[mid:]
+def ordenamiento_merge_parallel(arreglo):
+    if len(arreglo) <= 1:
+        return arreglo
+    mitad = len(arreglo) // 2
+    izquierda = arreglo[:mitad]
+    derecha = arreglo[mitad:]
     
     # Ordenar las mitades en paralelo
     with ThreadPoolExecutor(max_workers=2) as executor:
-        left_future = executor.submit(merge_sort_parallel, left)
-        right_future = executor.submit(merge_sort_parallel, right)
-        left_sorted = left_future.result()
-        right_sorted = right_future.result()
+        izquierda_future = executor.submit(ordenamiento_merge_parallel, izquierda)
+        derecha_future = executor.submit(ordenamiento_merge_parallel, derecha)
+        izquierda_ordenada = izquierda_future.result()
+        derecha_ordenada = derecha_future.result()
     
-    return merge(left_sorted, right_sorted)
+    return fusionar(izquierda_ordenada, derecha_ordenada)
 
-def merge(left, right):
-    result = []
+# Función para fusionar dos listas ordenadas
+def fusionar(izquierda, derecha):
+    resultado = []
     i = j = 0
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i])
+    while i < len(izquierda) and j < len(derecha):
+        if izquierda[i] <= derecha[j]:
+            resultado.append(izquierda[i])
             i += 1
         else:
-            result.append(right[j])
+            resultado.append(derecha[j])
             j += 1
-    result.extend(left[i:])
-    result.extend(right[j:])
-    return result
+    resultado.extend(izquierda[i:])
+    resultado.extend(derecha[j:])
+    return resultado
 
-# Convertir lista a matriz
-def list_to_matrix(lst, rows, cols):
-    return [lst[i * cols:(i + 1) * cols] for i in range(rows)]
+# Convertir lista plana a matriz
+def convertir_lista_a_matriz(lista_plana, filas, columnas):
+    return [lista_plana[i * columnas:(i + 1) * columnas] for i in range(filas)]
 
-# Leer números desde el archivo
-def leer_numeros_archivo(filename):
-    with open(filename, 'r') as file:
-        # Leer todas las líneas y convertirlas a una lista de enteros
-        return [int(line.strip()) for line in file.readlines()]
+# Generar números aleatorios
+def generar_numeros_aleatorios(cantidad):
+    return [random.randint(1, 1000) for _ in range(cantidad)]
 
 def main():
     print("Seleccione una opción:")
@@ -60,76 +60,63 @@ def main():
         # Opción para matriz
         while True:
             try:
-                filas = int(input("Ingrese número de filas: "))
-                columnas = int(input("Ingrese número de columnas: "))
+                filas = int(input("Ingrese el número de filas: "))
+                columnas = int(input("Ingrese el número de columnas: "))
                 if filas > 0 and columnas > 0:
                     break
                 print("Las dimensiones deben ser positivas.")
             except ValueError:
                 print("Ingrese números enteros válidos.")
         
-        total = filas * columnas
+        total_elementos = filas * columnas
         
-        # Leer los números desde el archivo
-        numeros = leer_numeros_archivo('numeros_aleatorios.txt')
-        
-        # Verificar si hay suficientes números en el archivo
-        if total <= len(numeros):
-            matriz = list_to_matrix(numeros[:total], filas, columnas)
-        else:
-            print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
-            matriz = list_to_matrix(numeros, filas, columnas)
+        # Generar números aleatorios
+        numeros_aleatorios = generar_numeros_aleatorios(total_elementos)
+        matriz = convertir_lista_a_matriz(numeros_aleatorios, filas, columnas)
         
         print("\nMatriz original:")
         for fila in matriz:
             print(fila)
         
         # Medir tiempo y ordenar
-        start_time = time.perf_counter_ns()
-        matriz_plana = [num for fila in matriz for num in fila]
-        matriz_ordenada_plana = merge_sort_parallel(matriz_plana)
-        matriz_ordenada = list_to_matrix(matriz_ordenada_plana, filas, columnas)
-        end_time = time.perf_counter_ns()
+        tiempo_inicio = time.perf_counter_ns()
+        matriz_plana = [elemento for fila in matriz for elemento in fila]
+        matriz_ordenada_plana = ordenamiento_merge_parallel(matriz_plana)
+        matriz_ordenada = convertir_lista_a_matriz(matriz_ordenada_plana, filas, columnas)
+        tiempo_fin = time.perf_counter_ns()
         
         print("\nMatriz ordenada:")
         for fila in matriz_ordenada:
             print(fila)
         
-        print(f"\nTiempo de ejecución: {end_time - start_time} nanosegundos")
+        print(f"\nTiempo de ejecución: {tiempo_fin - tiempo_inicio} nanosegundos")
     
     elif opcion == 2:
         # Opción para arreglo
         while True:
             try:
-                longitud = int(input("Ingrese longitud del arreglo: "))
-                if longitud > 0:
+                longitud_arreglo = int(input("Ingrese longitud del arreglo: "))
+                if longitud_arreglo > 0:
                     break
                 print("La longitud debe ser positiva.")
             except ValueError:
                 print("Ingrese un número entero válido.")
         
-        # Leer los números desde el archivo
-        numeros = leer_numeros_archivo('numeros_aleatorios.txt')
-        
-        # Verificar si hay suficientes números en el archivo
-        if longitud <= len(numeros):
-            arreglo = numeros[:longitud]
-        else:
-            print(f"Advertencia: El archivo tiene solo {len(numeros)} números. Usando todos.")
-            arreglo = numeros
+        # Generar arreglo con números aleatorios
+        arreglo_aleatorio = generar_numeros_aleatorios(longitud_arreglo)
         
         print("\nArreglo original:")
-        print(arreglo)
+        print(arreglo_aleatorio)
         
         # Medir tiempo y ordenar
-        start_time = time.perf_counter_ns()
-        arreglo_ordenado = merge_sort_parallel(arreglo.copy())
-        end_time = time.perf_counter_ns()
+        tiempo_inicio = time.perf_counter_ns()
+        arreglo_ordenado = ordenamiento_merge_parallel(arreglo_aleatorio.copy())
+        tiempo_fin = time.perf_counter_ns()
         
         print("\nArreglo ordenado:")
         print(arreglo_ordenado)
         
-        print(f"\nTiempo de ejecución: {end_time - start_time} nanosegundos")
+        print(f"\nTiempo de ejecución: {tiempo_fin - tiempo_inicio} nanosegundos")
 
 if __name__ == "__main__":
     main()
